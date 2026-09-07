@@ -1,0 +1,7504 @@
+{
+  "font": "CyrillicaBgEpigraphMod",
+  "description": "Mapping from the legacy CyrillicaBgEpigraphMod 8-bit font encoding to Unicode (Cyrillic, Cyrillic Supplement, Combining Cyrillic, Old Cyrillic, and generic combining diacritics). The legacy documents were saved under several different code pages, so the same font byte surfaces as different characters depending on how a given file was decoded. Both views are provided: 'mapping' is keyed by character (use it on already-decoded text, whatever the decoding was), and 'byte_mapping' is keyed by raw byte value (use it when reading bytes directly).",
+  "source_spreadsheet": "encoding.ods",
+  "counts": {
+    "character_keys": 390,
+    "distinct_legacy_bytes": 206,
+    "distinct_targets": 171,
+    "targets_with_more_than_one_source": 90
+  },
+  "source_codepages": [
+    "latin-1",
+    "cp1252",
+    "cp1250",
+    "cp1251",
+    "cp1253",
+    "cp1254 (a few keys only)"
+  ],
+  "unmapped_bytes": [
+    "0x2C",
+    "0x2D",
+    "0x2E",
+    "0x3A",
+    "0x3B",
+    "0x3C",
+    "0x3E",
+    "0x5B",
+    "0x5C",
+    "0x5D",
+    "0x6A",
+    "0x7B",
+    "0x7C",
+    "0x7D",
+    "0x7E",
+    "0x7F",
+    "0xA0"
+  ],
+  "notes": [
+    "Every key is a single character and every byte key is a single byte, so a plain per-character substitution is enough; no longest-match logic is needed.",
+    "Targets may be more than one character (a base letter plus one or two combining marks), so use str.maketrans + str.translate, which accepts multi-character replacements, rather than a fixed-width byte table.",
+    "The character keys were cross-checked against the byte table: every key decodes to the same legacy byte under at least one of the listed code pages, and no byte receives two different targets. The 'legacy_byte' and 'seen_as_decoding' fields in 'entries' record which byte and which decoding each key came from.",
+    "U+2219 BULLET OPERATOR is the one key with no byte assignment; it is a variant form of U+00B7 MIDDLE DOT (byte 0xB7) and maps to the same target.",
+    "Bytes 0x80-0x9F carry real glyphs in this font. Under latin-1 they decode to C1 controls, under cp1250/cp1251/cp1252/cp1253 to typographic punctuation (curly quotes, dashes, dagger, per-mille) and under cp1250/cp1251 to letters such as \u0402, \u0403, \u0409, \u040a, \u040c, \u040f. All of those forms are present as keys.",
+    "Bytes with no mapping (space, , - . : ; < > [ \\ ] j { | } ~ DEL and 0xA0) are not font glyphs and should be passed through unchanged, as should any character not found in the table.",
+    "Apply this only to text that was actually set in CyrillicaBgEpigraphMod (the <CYR> runs that convert_i.pl tags from FACE=\"CyrillicaBgEpigraphMod\"). Ordinary Cyrillic letters are themselves keys and map to different letters (for example \u0415 to U+0454, \u041e to U+047B, \u0418 to U+0457), so running this over normal Russian prose will corrupt it.",
+    "Targets are not normalized: some are given decomposed (U+0406 U+0308 for \u0407, U+0456 U+0308 for \u0457). Apply unicodedata.normalize('NFC', s) afterwards for composed forms. The combining Cyrillic letters in U+2DE0-U+2DFF have no composed equivalents, so NFC leaves them alone, which is correct.",
+    "One target contains U+200D ZERO WIDTH JOINER (the \u0430-\u0443 digraph); keep it, it is carrying the ligature.",
+    "The mapping is many-to-one and therefore not invertible."
+  ],
+  "mapping": {
+    "!": "\u0456\u0486",
+    "\"": "\u00b7",
+    "#": "\u0482",
+    "$": "\u2e43",
+    "%": "\u2e43",
+    "&": "\u0482",
+    "'": "\u02b9",
+    "(": "\u0304",
+    ")": "\u0304",
+    "*": ".",
+    "+": "\u0486",
+    "/": "\u0304",
+    "0": "\ua66b",
+    "1": "\u0301",
+    "2": "\u0300",
+    "3": "\u0486\u0301",
+    "4": "\u0486\u0300",
+    "5": "\u0311",
+    "6": "\u0485\u0301",
+    "7": "\u0486",
+    "8": "\u0486\u0311",
+    "9": "\u0486",
+    "=": ",",
+    "?": "\u0304",
+    "@": "\u2df6",
+    "A": "\u2de0",
+    "B": "\u2de1",
+    "C": "\u2de2",
+    "D": "\u2de3",
+    "E": "\u2dfe",
+    "F": "\u2de4",
+    "G": "\u2dfd",
+    "H": "\u041d",
+    "I": "\u0406",
+    "J": "\ua675",
+    "K": "\u2df4",
+    "L": "\u2de6",
+    "M": "\u2de7",
+    "N": "\u2de8",
+    "O": "\u2de9",
+    "P": "\u2dea",
+    "Q": "\u2deb",
+    "R": "\u2dec",
+    "S": "\u0405",
+    "T": "\u2ded",
+    "U": "\u2dee",
+    "V": "\u0474",
+    "W": "\u2ded\u0487",
+    "X": "\ua677",
+    "Y": "\ua64a",
+    "Z": "\ua64d",
+    "^": "\u0481",
+    "_": "\u0305",
+    "`": "\u0301",
+    "a": "\u2def",
+    "b": "\u2df0",
+    "c": "\u2df1",
+    "d": "\u2df2",
+    "e": "\u2df3",
+    "f": "\ua678",
+    "g": "\ua679",
+    "h": "\u2dfa",
+    "i": "\u2de5",
+    "k": "\u2df9",
+    "l": "\ua69e",
+    "m": "\u2df7",
+    "n": "\u047a",
+    "o": "\u041e",
+    "p": "\u0465",
+    "q": "\ua646",
+    "r": "\ua64d",
+    "s": "\u0455",
+    "t": "\ua644",
+    "u": "\ua65a",
+    "v": "\u0475",
+    "w": "\u0456\u0486",
+    "x": "\ua64b",
+    "y": "\u0423",
+    "z": "\u0483",
+    "\u0080": "\u0305",
+    "\u0081": "\u0483",
+    "\u0082": "\u0303",
+    "\u0083": "\ua66f",
+    "\u0084": "\u0357",
+    "\u0085": "\u0351",
+    "\u0086": "\u0311",
+    "\u0087": "\u0306",
+    "\u0088": "\u0486\u0301",
+    "\u0089": "\u0485\u0301",
+    "\u008a": "\u0487",
+    "\u008b": "\u0472",
+    "\u008c": "\ua650",
+    "\u008d": "\u0483",
+    "\u008e": "\u0470",
+    "\u008f": "\u2e43",
+    "\u0090": "\u0487",
+    "\u0091": "\u0301",
+    "\u0092": "\u0300",
+    "\u0093": "\u030b",
+    "\u0094": "\u030f",
+    "\u0095": "\u2022",
+    "\u0096": "\u2013",
+    "\u0097": "\u047e",
+    "\u0098": "\u0307",
+    "\u0099": "\u046a",
+    "\u009a": "\u0468",
+    "\u009b": "\u0486\u0300",
+    "\u009c": "\u0486",
+    "\u009d": "\u0466",
+    "\u009e": "\u0430\u200d\u0443",
+    "\u009f": "\ua64d",
+    "\u00a1": "\u0311",
+    "\u00a2": "\u02b9",
+    "\u00a3": "\u2dee",
+    "\u00a4": "\ua645",
+    "\u00a5": "\ua651",
+    "\u00a6": "\ua65b",
+    "\u00a7": "\u047f",
+    "\u00a8": "\u0308",
+    "\u00a9": "\u042e",
+    "\u00aa": "\u0469",
+    "\u00ab": "\u046d",
+    "\u00ac": "\u0465",
+    "\u00ad": "\ua656",
+    "\u00ae": "\ua659",
+    "\u00af": "\ua659",
+    "\u00b0": "\u033e",
+    "\u00b1": "\u033e",
+    "\u00b2": "\u0406\u0308",
+    "\u00b3": "\ua643",
+    "\u00b4": "\u0417",
+    "\u00b5": "\ua647",
+    "\u00b6": "\u0456",
+    "\u00b7": "\u0418",
+    "\u00b8": "\u0438",
+    "\u00b9": "\u1c82\u0443",
+    "\u00ba": "\u0435\u0486",
+    "\u00bb": "\ua669",
+    "\u00bc": "\ua650",
+    "\u00bd": "\u0435",
+    "\u00be": "\u0471",
+    "\u00bf": "\u046f",
+    "\u00c0": "\u0410",
+    "\u00c1": "\u0411",
+    "\u00c2": "\u0412",
+    "\u00c3": "\u0413",
+    "\u00c4": "\u0414",
+    "\u00c5": "\u0454",
+    "\u00c6": "\u0416",
+    "\u00c7": "\u0437",
+    "\u00c8": "\u0456\u0308",
+    "\u00c9": "\u0460",
+    "\u00ca": "\u041a",
+    "\u00cb": "\u041b",
+    "\u00cc": "\u041c",
+    "\u00cd": "\u041d",
+    "\u00ce": "\u047b",
+    "\u00cf": "\u041f",
+    "\u00d0": "\u0420",
+    "\u00d1": "\u0421",
+    "\u00d2": "\u0422",
+    "\u00d3": "\u0443",
+    "\u00d4": "\u0473",
+    "\u00d5": "\u0425",
+    "\u00d6": "\u0426",
+    "\u00d7": "\u0427",
+    "\u00d8": "\u0428",
+    "\u00d9": "\u0429",
+    "\u00da": "\u042a",
+    "\u00db": "\ua651",
+    "\u00dc": "\u042c",
+    "\u00dd": "\u0462",
+    "\u00de": "\u046b",
+    "\u00df": "\u0467",
+    "\u00e0": "\u0430",
+    "\u00e1": "\u0431",
+    "\u00e2": "\u0432",
+    "\u00e3": "\u0433",
+    "\u00e4": "\u0434",
+    "\u00e5": "\u0435",
+    "\u00e6": "\u0436",
+    "\u00e7": "\ua641",
+    "\u00e8": "\u0438",
+    "\u00e9": "\u0461",
+    "\u00ea": "\u043a",
+    "\u00eb": "\u043b",
+    "\u00ec": "\u043c",
+    "\u00ed": "\u043d",
+    "\u00ee": "\u043e",
+    "\u00ef": "\u043f",
+    "\u00f0": "\u0440",
+    "\u00f1": "\u0441",
+    "\u00f2": "\u0442",
+    "\u00f3": "\ua64b",
+    "\u00f4": "\u0444",
+    "\u00f5": "\u0445",
+    "\u00f6": "\u0446",
+    "\u00f7": "\u0447",
+    "\u00f8": "\u0448",
+    "\u00f9": "\u0449",
+    "\u00fa": "\u044a",
+    "\u00fb": "\u044b",
+    "\u00fc": "\u044c",
+    "\u00fd": "\u0463",
+    "\u00fe": "\u044e",
+    "\u00ff": "\ua657",
+    "\u0102": "\u0413",
+    "\u0103": "\u0433",
+    "\u0104": "\ua651",
+    "\u0105": "\u1c82\u0443",
+    "\u0106": "\u0416",
+    "\u010c": "\u0456\u0308",
+    "\u010e": "\u041f",
+    "\u0110": "\u0420",
+    "\u0118": "\u041a",
+    "\u011a": "\u041c",
+    "\u011e": "\u0420",
+    "\u0130": "\u0462",
+    "\u0131": "\u0463",
+    "\u0139": "\u0454",
+    "\u013d": "\ua650",
+    "\u013e": "\u0471",
+    "\u0141": "\u2dee",
+    "\u0142": "\ua643",
+    "\u0143": "\u0421",
+    "\u0147": "\u0422",
+    "\u0150": "\u0425",
+    "\u0152": "\ua650",
+    "\u0153": "\u0486",
+    "\u0154": "\u0410",
+    "\u0155": "\u0430",
+    "\u0158": "\u0428",
+    "\u015a": "\ua650",
+    "\u015b": "\u0486",
+    "\u015e": "\u0469",
+    "\u015f": "\u0435\u0486",
+    "\u0160": "\u0487",
+    "\u0161": "\u0468",
+    "\u0162": "\u046b",
+    "\u0164": "\u0483",
+    "\u0165": "\u0466",
+    "\u016e": "\u0429",
+    "\u0170": "\ua651",
+    "\u0178": "\ua64d",
+    "\u0179": "\u2e43",
+    "\u017a": "\ua64d",
+    "\u017b": "\ua659",
+    "\u017c": "\u046f",
+    "\u017d": "\u0470",
+    "\u017e": "\u0430\u200d\u0443",
+    "\u0192": "\ua66f",
+    "\u02c6": "\u0486\u0301",
+    "\u02c7": "\u0311",
+    "\u02d8": "\u02b9",
+    "\u02d9": "\ua657",
+    "\u02db": "\u0406\u0308",
+    "\u02dc": "\u0307",
+    "\u02dd": "\u0435",
+    "\u0385": "\u0311",
+    "\u0386": "\u02b9",
+    "\u0388": "\u0438",
+    "\u0389": "\u1c82\u0443",
+    "\u038a": "\u0435\u0486",
+    "\u038c": "\ua650",
+    "\u038e": "\u0471",
+    "\u038f": "\u046f",
+    "\u0390": "\u0410",
+    "\u0391": "\u0411",
+    "\u0392": "\u0412",
+    "\u0393": "\u0413",
+    "\u0394": "\u0414",
+    "\u0395": "\u0454",
+    "\u0396": "\u0416",
+    "\u0397": "\u0437",
+    "\u0398": "\u0456\u0308",
+    "\u0399": "\u0460",
+    "\u039a": "\u041a",
+    "\u039b": "\u041b",
+    "\u039c": "\u041c",
+    "\u039d": "\u041d",
+    "\u039e": "\u047b",
+    "\u039f": "\u041f",
+    "\u03a0": "\u0420",
+    "\u03a1": "\u0421",
+    "\u03a3": "\u0443",
+    "\u03a4": "\u0473",
+    "\u03a5": "\u0425",
+    "\u03a6": "\u0426",
+    "\u03a7": "\u0427",
+    "\u03a8": "\u0428",
+    "\u03a9": "\u0429",
+    "\u03aa": "\u042a",
+    "\u03ab": "\ua651",
+    "\u03ac": "\u042c",
+    "\u03ad": "\u0462",
+    "\u03ae": "\u046b",
+    "\u03af": "\u0467",
+    "\u03b0": "\u0430",
+    "\u03b1": "\u0431",
+    "\u03b7": "\ua641",
+    "\u03b9": "\u0461",
+    "\u03c3": "\ua64b",
+    "\u03cd": "\u0463",
+    "\u0401": "\u0308",
+    "\u0402": "\u0305",
+    "\u0403": "\u0483",
+    "\u0404": "\u0469",
+    "\u0405": "\u0435",
+    "\u0406": "\u0406\u0308",
+    "\u0407": "\ua659",
+    "\u0408": "\u2dee",
+    "\u0409": "\u0487",
+    "\u040a": "\ua650",
+    "\u040b": "\u0470",
+    "\u040c": "\u0483",
+    "\u040e": "\u0311",
+    "\u040f": "\u2e43",
+    "\u0410": "\u0410",
+    "\u0411": "\u0411",
+    "\u0412": "\u0412",
+    "\u0413": "\u0413",
+    "\u0414": "\u0414",
+    "\u0415": "\u0454",
+    "\u0416": "\u0416",
+    "\u0417": "\u0437",
+    "\u0418": "\u0456\u0308",
+    "\u0419": "\u0460",
+    "\u041a": "\u041a",
+    "\u041b": "\u041b",
+    "\u041c": "\u041c",
+    "\u041d": "\u041d",
+    "\u041e": "\u047b",
+    "\u041f": "\u041f",
+    "\u0420": "\u0420",
+    "\u0421": "\u0421",
+    "\u0422": "\u0422",
+    "\u0423": "\u0443",
+    "\u0424": "\u0473",
+    "\u0425": "\u0425",
+    "\u0426": "\u0426",
+    "\u0427": "\u0427",
+    "\u0428": "\u0428",
+    "\u0429": "\u0429",
+    "\u042a": "\u042a",
+    "\u042b": "\ua651",
+    "\u042c": "\u042c",
+    "\u042d": "\u0462",
+    "\u042e": "\u046b",
+    "\u042f": "\u0467",
+    "\u0430": "\u0430",
+    "\u0431": "\u0431",
+    "\u0437": "\ua641",
+    "\u0439": "\u0461",
+    "\u0443": "\ua64b",
+    "\u044d": "\u0463",
+    "\u044f": "\ua657",
+    "\u0451": "\u0438",
+    "\u0452": "\u0487",
+    "\u0453": "\ua66f",
+    "\u0454": "\u0435\u0486",
+    "\u0455": "\u0471",
+    "\u0456": "\ua643",
+    "\u0457": "\u046f",
+    "\u0458": "\ua650",
+    "\u0459": "\u0468",
+    "\u045a": "\u0486",
+    "\u045b": "\u0430\u200d\u0443",
+    "\u045c": "\u0466",
+    "\u045e": "\u02b9",
+    "\u045f": "\ua64d",
+    "\u0490": "\ua651",
+    "\u0491": "\u0417",
+    "\u2013": "\u2013",
+    "\u2014": "\u047e",
+    "\u2018": "\u0301",
+    "\u2019": "\u0300",
+    "\u201a": "\u0303",
+    "\u201c": "\u030b",
+    "\u201d": "\u030f",
+    "\u201e": "\u0357",
+    "\u2020": "\u0311",
+    "\u2021": "\u0306",
+    "\u2022": "\u2022",
+    "\u2026": "\u0351",
+    "\u2030": "\u0485\u0301",
+    "\u2039": "\u0472",
+    "\u203a": "\u0486\u0300",
+    "\u2116": "\u1c82\u0443",
+    "\u2122": "\u046a",
+    "\u2219": "\u0418"
+  },
+  "byte_mapping": {
+    "0x21": "\u0456\u0486",
+    "0x22": "\u00b7",
+    "0x23": "\u0482",
+    "0x24": "\u2e43",
+    "0x25": "\u2e43",
+    "0x26": "\u0482",
+    "0x27": "\u02b9",
+    "0x28": "\u0304",
+    "0x29": "\u0304",
+    "0x2A": ".",
+    "0x2B": "\u0486",
+    "0x2F": "\u0304",
+    "0x30": "\ua66b",
+    "0x31": "\u0301",
+    "0x32": "\u0300",
+    "0x33": "\u0486\u0301",
+    "0x34": "\u0486\u0300",
+    "0x35": "\u0311",
+    "0x36": "\u0485\u0301",
+    "0x37": "\u0486",
+    "0x38": "\u0486\u0311",
+    "0x39": "\u0486",
+    "0x3D": ",",
+    "0x3F": "\u0304",
+    "0x40": "\u2df6",
+    "0x41": "\u2de0",
+    "0x42": "\u2de1",
+    "0x43": "\u2de2",
+    "0x44": "\u2de3",
+    "0x45": "\u2dfe",
+    "0x46": "\u2de4",
+    "0x47": "\u2dfd",
+    "0x48": "\u041d",
+    "0x49": "\u0406",
+    "0x4A": "\ua675",
+    "0x4B": "\u2df4",
+    "0x4C": "\u2de6",
+    "0x4D": "\u2de7",
+    "0x4E": "\u2de8",
+    "0x4F": "\u2de9",
+    "0x50": "\u2dea",
+    "0x51": "\u2deb",
+    "0x52": "\u2dec",
+    "0x53": "\u0405",
+    "0x54": "\u2ded",
+    "0x55": "\u2dee",
+    "0x56": "\u0474",
+    "0x57": "\u2ded\u0487",
+    "0x58": "\ua677",
+    "0x59": "\ua64a",
+    "0x5A": "\ua64d",
+    "0x5E": "\u0481",
+    "0x5F": "\u0305",
+    "0x60": "\u0301",
+    "0x61": "\u2def",
+    "0x62": "\u2df0",
+    "0x63": "\u2df1",
+    "0x64": "\u2df2",
+    "0x65": "\u2df3",
+    "0x66": "\ua678",
+    "0x67": "\ua679",
+    "0x68": "\u2dfa",
+    "0x69": "\u2de5",
+    "0x6B": "\u2df9",
+    "0x6C": "\ua69e",
+    "0x6D": "\u2df7",
+    "0x6E": "\u047a",
+    "0x6F": "\u041e",
+    "0x70": "\u0465",
+    "0x71": "\ua646",
+    "0x72": "\ua64d",
+    "0x73": "\u0455",
+    "0x74": "\ua644",
+    "0x75": "\ua65a",
+    "0x76": "\u0475",
+    "0x77": "\u0456\u0486",
+    "0x78": "\ua64b",
+    "0x79": "\u0423",
+    "0x7A": "\u0483",
+    "0x80": "\u0305",
+    "0x81": "\u0483",
+    "0x82": "\u0303",
+    "0x83": "\ua66f",
+    "0x84": "\u0357",
+    "0x85": "\u0351",
+    "0x86": "\u0311",
+    "0x87": "\u0306",
+    "0x88": "\u0486\u0301",
+    "0x89": "\u0485\u0301",
+    "0x8A": "\u0487",
+    "0x8B": "\u0472",
+    "0x8C": "\ua650",
+    "0x8D": "\u0483",
+    "0x8E": "\u0470",
+    "0x8F": "\u2e43",
+    "0x90": "\u0487",
+    "0x91": "\u0301",
+    "0x92": "\u0300",
+    "0x93": "\u030b",
+    "0x94": "\u030f",
+    "0x95": "\u2022",
+    "0x96": "\u2013",
+    "0x97": "\u047e",
+    "0x98": "\u0307",
+    "0x99": "\u046a",
+    "0x9A": "\u0468",
+    "0x9B": "\u0486\u0300",
+    "0x9C": "\u0486",
+    "0x9D": "\u0466",
+    "0x9E": "\u0430\u200d\u0443",
+    "0x9F": "\ua64d",
+    "0xA1": "\u0311",
+    "0xA2": "\u02b9",
+    "0xA3": "\u2dee",
+    "0xA4": "\ua645",
+    "0xA5": "\ua651",
+    "0xA6": "\ua65b",
+    "0xA7": "\u047f",
+    "0xA8": "\u0308",
+    "0xA9": "\u042e",
+    "0xAA": "\u0469",
+    "0xAB": "\u046d",
+    "0xAC": "\u0465",
+    "0xAD": "\ua656",
+    "0xAE": "\ua659",
+    "0xAF": "\ua659",
+    "0xB0": "\u033e",
+    "0xB1": "\u033e",
+    "0xB2": "\u0406\u0308",
+    "0xB3": "\ua643",
+    "0xB4": "\u0417",
+    "0xB5": "\ua647",
+    "0xB6": "\u0456",
+    "0xB7": "\u0418",
+    "0xB8": "\u0438",
+    "0xB9": "\u1c82\u0443",
+    "0xBA": "\u0435\u0486",
+    "0xBB": "\ua669",
+    "0xBC": "\ua650",
+    "0xBD": "\u0435",
+    "0xBE": "\u0471",
+    "0xBF": "\u046f",
+    "0xC0": "\u0410",
+    "0xC1": "\u0411",
+    "0xC2": "\u0412",
+    "0xC3": "\u0413",
+    "0xC4": "\u0414",
+    "0xC5": "\u0454",
+    "0xC6": "\u0416",
+    "0xC7": "\u0437",
+    "0xC8": "\u0456\u0308",
+    "0xC9": "\u0460",
+    "0xCA": "\u041a",
+    "0xCB": "\u041b",
+    "0xCC": "\u041c",
+    "0xCD": "\u041d",
+    "0xCE": "\u047b",
+    "0xCF": "\u041f",
+    "0xD0": "\u0420",
+    "0xD1": "\u0421",
+    "0xD2": "\u0422",
+    "0xD3": "\u0443",
+    "0xD4": "\u0473",
+    "0xD5": "\u0425",
+    "0xD6": "\u0426",
+    "0xD7": "\u0427",
+    "0xD8": "\u0428",
+    "0xD9": "\u0429",
+    "0xDA": "\u042a",
+    "0xDB": "\ua651",
+    "0xDC": "\u042c",
+    "0xDD": "\u0462",
+    "0xDE": "\u046b",
+    "0xDF": "\u0467",
+    "0xE0": "\u0430",
+    "0xE1": "\u0431",
+    "0xE2": "\u0432",
+    "0xE3": "\u0433",
+    "0xE4": "\u0434",
+    "0xE5": "\u0435",
+    "0xE6": "\u0436",
+    "0xE7": "\ua641",
+    "0xE8": "\u0438",
+    "0xE9": "\u0461",
+    "0xEA": "\u043a",
+    "0xEB": "\u043b",
+    "0xEC": "\u043c",
+    "0xED": "\u043d",
+    "0xEE": "\u043e",
+    "0xEF": "\u043f",
+    "0xF0": "\u0440",
+    "0xF1": "\u0441",
+    "0xF2": "\u0442",
+    "0xF3": "\ua64b",
+    "0xF4": "\u0444",
+    "0xF5": "\u0445",
+    "0xF6": "\u0446",
+    "0xF7": "\u0447",
+    "0xF8": "\u0448",
+    "0xF9": "\u0449",
+    "0xFA": "\u044a",
+    "0xFB": "\u044b",
+    "0xFC": "\u044c",
+    "0xFD": "\u0463",
+    "0xFE": "\u044e",
+    "0xFF": "\ua657"
+  },
+  "entries": [
+    {
+      "source": "!",
+      "source_codepoint": "U+0021",
+      "source_name": "EXCLAMATION MARK",
+      "legacy_byte": "0x21",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0456\u0486",
+      "target_codepoints": [
+        "U+0456",
+        "U+0486"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I",
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "\"",
+      "source_codepoint": "U+0022",
+      "source_name": "QUOTATION MARK",
+      "legacy_byte": "0x22",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u00b7",
+      "target_codepoints": [
+        "U+00B7"
+      ],
+      "target_names": [
+        "MIDDLE DOT"
+      ]
+    },
+    {
+      "source": "#",
+      "source_codepoint": "U+0023",
+      "source_name": "NUMBER SIGN",
+      "legacy_byte": "0x23",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0482",
+      "target_codepoints": [
+        "U+0482"
+      ],
+      "target_names": [
+        "CYRILLIC THOUSANDS SIGN"
+      ]
+    },
+    {
+      "source": "$",
+      "source_codepoint": "U+0024",
+      "source_name": "DOLLAR SIGN",
+      "legacy_byte": "0x24",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2e43",
+      "target_codepoints": [
+        "U+2E43"
+      ],
+      "target_names": [
+        "DASH WITH LEFT UPTURN"
+      ]
+    },
+    {
+      "source": "%",
+      "source_codepoint": "U+0025",
+      "source_name": "PERCENT SIGN",
+      "legacy_byte": "0x25",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2e43",
+      "target_codepoints": [
+        "U+2E43"
+      ],
+      "target_names": [
+        "DASH WITH LEFT UPTURN"
+      ]
+    },
+    {
+      "source": "&",
+      "source_codepoint": "U+0026",
+      "source_name": "AMPERSAND",
+      "legacy_byte": "0x26",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0482",
+      "target_codepoints": [
+        "U+0482"
+      ],
+      "target_names": [
+        "CYRILLIC THOUSANDS SIGN"
+      ]
+    },
+    {
+      "source": "'",
+      "source_codepoint": "U+0027",
+      "source_name": "APOSTROPHE",
+      "legacy_byte": "0x27",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u02b9",
+      "target_codepoints": [
+        "U+02B9"
+      ],
+      "target_names": [
+        "MODIFIER LETTER PRIME"
+      ]
+    },
+    {
+      "source": "(",
+      "source_codepoint": "U+0028",
+      "source_name": "LEFT PARENTHESIS",
+      "legacy_byte": "0x28",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0304",
+      "target_codepoints": [
+        "U+0304"
+      ],
+      "target_names": [
+        "COMBINING MACRON"
+      ]
+    },
+    {
+      "source": ")",
+      "source_codepoint": "U+0029",
+      "source_name": "RIGHT PARENTHESIS",
+      "legacy_byte": "0x29",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0304",
+      "target_codepoints": [
+        "U+0304"
+      ],
+      "target_names": [
+        "COMBINING MACRON"
+      ]
+    },
+    {
+      "source": "*",
+      "source_codepoint": "U+002A",
+      "source_name": "ASTERISK",
+      "legacy_byte": "0x2A",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": ".",
+      "target_codepoints": [
+        "U+002E"
+      ],
+      "target_names": [
+        "FULL STOP"
+      ]
+    },
+    {
+      "source": "+",
+      "source_codepoint": "U+002B",
+      "source_name": "PLUS SIGN",
+      "legacy_byte": "0x2B",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0486",
+      "target_codepoints": [
+        "U+0486"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "/",
+      "source_codepoint": "U+002F",
+      "source_name": "SOLIDUS",
+      "legacy_byte": "0x2F",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0304",
+      "target_codepoints": [
+        "U+0304"
+      ],
+      "target_names": [
+        "COMBINING MACRON"
+      ]
+    },
+    {
+      "source": "0",
+      "source_codepoint": "U+0030",
+      "source_name": "DIGIT ZERO",
+      "legacy_byte": "0x30",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua66b",
+      "target_codepoints": [
+        "U+A66B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BINOCULAR O"
+      ]
+    },
+    {
+      "source": "1",
+      "source_codepoint": "U+0031",
+      "source_name": "DIGIT ONE",
+      "legacy_byte": "0x31",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0301",
+      "target_codepoints": [
+        "U+0301"
+      ],
+      "target_names": [
+        "COMBINING ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "2",
+      "source_codepoint": "U+0032",
+      "source_name": "DIGIT TWO",
+      "legacy_byte": "0x32",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0300",
+      "target_codepoints": [
+        "U+0300"
+      ],
+      "target_names": [
+        "COMBINING GRAVE ACCENT"
+      ]
+    },
+    {
+      "source": "3",
+      "source_codepoint": "U+0033",
+      "source_name": "DIGIT THREE",
+      "legacy_byte": "0x33",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0486\u0301",
+      "target_codepoints": [
+        "U+0486",
+        "U+0301"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA",
+        "COMBINING ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "4",
+      "source_codepoint": "U+0034",
+      "source_name": "DIGIT FOUR",
+      "legacy_byte": "0x34",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0486\u0300",
+      "target_codepoints": [
+        "U+0486",
+        "U+0300"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA",
+        "COMBINING GRAVE ACCENT"
+      ]
+    },
+    {
+      "source": "5",
+      "source_codepoint": "U+0035",
+      "source_name": "DIGIT FIVE",
+      "legacy_byte": "0x35",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0311",
+      "target_codepoints": [
+        "U+0311"
+      ],
+      "target_names": [
+        "COMBINING INVERTED BREVE"
+      ]
+    },
+    {
+      "source": "6",
+      "source_codepoint": "U+0036",
+      "source_name": "DIGIT SIX",
+      "legacy_byte": "0x36",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0485\u0301",
+      "target_codepoints": [
+        "U+0485",
+        "U+0301"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC DASIA PNEUMATA",
+        "COMBINING ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "7",
+      "source_codepoint": "U+0037",
+      "source_name": "DIGIT SEVEN",
+      "legacy_byte": "0x37",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0486",
+      "target_codepoints": [
+        "U+0486"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "8",
+      "source_codepoint": "U+0038",
+      "source_name": "DIGIT EIGHT",
+      "legacy_byte": "0x38",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0486\u0311",
+      "target_codepoints": [
+        "U+0486",
+        "U+0311"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA",
+        "COMBINING INVERTED BREVE"
+      ]
+    },
+    {
+      "source": "9",
+      "source_codepoint": "U+0039",
+      "source_name": "DIGIT NINE",
+      "legacy_byte": "0x39",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0486",
+      "target_codepoints": [
+        "U+0486"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "=",
+      "source_codepoint": "U+003D",
+      "source_name": "EQUALS SIGN",
+      "legacy_byte": "0x3D",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": ",",
+      "target_codepoints": [
+        "U+002C"
+      ],
+      "target_names": [
+        "COMMA"
+      ]
+    },
+    {
+      "source": "?",
+      "source_codepoint": "U+003F",
+      "source_name": "QUESTION MARK",
+      "legacy_byte": "0x3F",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0304",
+      "target_codepoints": [
+        "U+0304"
+      ],
+      "target_names": [
+        "COMBINING MACRON"
+      ]
+    },
+    {
+      "source": "@",
+      "source_codepoint": "U+0040",
+      "source_name": "COMMERCIAL AT",
+      "legacy_byte": "0x40",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2df6",
+      "target_codepoints": [
+        "U+2DF6"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER A"
+      ]
+    },
+    {
+      "source": "A",
+      "source_codepoint": "U+0041",
+      "source_name": "LATIN CAPITAL LETTER A",
+      "legacy_byte": "0x41",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2de0",
+      "target_codepoints": [
+        "U+2DE0"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER BE"
+      ]
+    },
+    {
+      "source": "B",
+      "source_codepoint": "U+0042",
+      "source_name": "LATIN CAPITAL LETTER B",
+      "legacy_byte": "0x42",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2de1",
+      "target_codepoints": [
+        "U+2DE1"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER VE"
+      ]
+    },
+    {
+      "source": "C",
+      "source_codepoint": "U+0043",
+      "source_name": "LATIN CAPITAL LETTER C",
+      "legacy_byte": "0x43",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2de2",
+      "target_codepoints": [
+        "U+2DE2"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER GHE"
+      ]
+    },
+    {
+      "source": "D",
+      "source_codepoint": "U+0044",
+      "source_name": "LATIN CAPITAL LETTER D",
+      "legacy_byte": "0x44",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2de3",
+      "target_codepoints": [
+        "U+2DE3"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER DE"
+      ]
+    },
+    {
+      "source": "E",
+      "source_codepoint": "U+0045",
+      "source_name": "LATIN CAPITAL LETTER E",
+      "legacy_byte": "0x45",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2dfe",
+      "target_codepoints": [
+        "U+2DFE"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER BIG YUS"
+      ]
+    },
+    {
+      "source": "F",
+      "source_codepoint": "U+0046",
+      "source_name": "LATIN CAPITAL LETTER F",
+      "legacy_byte": "0x46",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2de4",
+      "target_codepoints": [
+        "U+2DE4"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER ZHE"
+      ]
+    },
+    {
+      "source": "G",
+      "source_codepoint": "U+0047",
+      "source_name": "LATIN CAPITAL LETTER G",
+      "legacy_byte": "0x47",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2dfd",
+      "target_codepoints": [
+        "U+2DFD"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER LITTLE YUS"
+      ]
+    },
+    {
+      "source": "H",
+      "source_codepoint": "U+0048",
+      "source_name": "LATIN CAPITAL LETTER H",
+      "legacy_byte": "0x48",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u041d",
+      "target_codepoints": [
+        "U+041D"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EN"
+      ]
+    },
+    {
+      "source": "I",
+      "source_codepoint": "U+0049",
+      "source_name": "LATIN CAPITAL LETTER I",
+      "legacy_byte": "0x49",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0406",
+      "target_codepoints": [
+        "U+0406"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER BYELORUSSIAN-UKRAINIAN I"
+      ]
+    },
+    {
+      "source": "J",
+      "source_codepoint": "U+004A",
+      "source_name": "LATIN CAPITAL LETTER J",
+      "legacy_byte": "0x4A",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua675",
+      "target_codepoints": [
+        "U+A675"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER I"
+      ]
+    },
+    {
+      "source": "K",
+      "source_codepoint": "U+004B",
+      "source_name": "LATIN CAPITAL LETTER K",
+      "legacy_byte": "0x4B",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2df4",
+      "target_codepoints": [
+        "U+2DF4"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER FITA"
+      ]
+    },
+    {
+      "source": "L",
+      "source_codepoint": "U+004C",
+      "source_name": "LATIN CAPITAL LETTER L",
+      "legacy_byte": "0x4C",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2de6",
+      "target_codepoints": [
+        "U+2DE6"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER KA"
+      ]
+    },
+    {
+      "source": "M",
+      "source_codepoint": "U+004D",
+      "source_name": "LATIN CAPITAL LETTER M",
+      "legacy_byte": "0x4D",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2de7",
+      "target_codepoints": [
+        "U+2DE7"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER EL"
+      ]
+    },
+    {
+      "source": "N",
+      "source_codepoint": "U+004E",
+      "source_name": "LATIN CAPITAL LETTER N",
+      "legacy_byte": "0x4E",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2de8",
+      "target_codepoints": [
+        "U+2DE8"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER EM"
+      ]
+    },
+    {
+      "source": "O",
+      "source_codepoint": "U+004F",
+      "source_name": "LATIN CAPITAL LETTER O",
+      "legacy_byte": "0x4F",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2de9",
+      "target_codepoints": [
+        "U+2DE9"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER EN"
+      ]
+    },
+    {
+      "source": "P",
+      "source_codepoint": "U+0050",
+      "source_name": "LATIN CAPITAL LETTER P",
+      "legacy_byte": "0x50",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2dea",
+      "target_codepoints": [
+        "U+2DEA"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER O"
+      ]
+    },
+    {
+      "source": "Q",
+      "source_codepoint": "U+0051",
+      "source_name": "LATIN CAPITAL LETTER Q",
+      "legacy_byte": "0x51",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2deb",
+      "target_codepoints": [
+        "U+2DEB"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER PE"
+      ]
+    },
+    {
+      "source": "R",
+      "source_codepoint": "U+0052",
+      "source_name": "LATIN CAPITAL LETTER R",
+      "legacy_byte": "0x52",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2dec",
+      "target_codepoints": [
+        "U+2DEC"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER ER"
+      ]
+    },
+    {
+      "source": "S",
+      "source_codepoint": "U+0053",
+      "source_name": "LATIN CAPITAL LETTER S",
+      "legacy_byte": "0x53",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0405",
+      "target_codepoints": [
+        "U+0405"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER DZE"
+      ]
+    },
+    {
+      "source": "T",
+      "source_codepoint": "U+0054",
+      "source_name": "LATIN CAPITAL LETTER T",
+      "legacy_byte": "0x54",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2ded",
+      "target_codepoints": [
+        "U+2DED"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER ES"
+      ]
+    },
+    {
+      "source": "U",
+      "source_codepoint": "U+0055",
+      "source_name": "LATIN CAPITAL LETTER U",
+      "legacy_byte": "0x55",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2dee",
+      "target_codepoints": [
+        "U+2DEE"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER TE"
+      ]
+    },
+    {
+      "source": "V",
+      "source_codepoint": "U+0056",
+      "source_name": "LATIN CAPITAL LETTER V",
+      "legacy_byte": "0x56",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0474",
+      "target_codepoints": [
+        "U+0474"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER IZHITSA"
+      ]
+    },
+    {
+      "source": "W",
+      "source_codepoint": "U+0057",
+      "source_name": "LATIN CAPITAL LETTER W",
+      "legacy_byte": "0x57",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2ded\u0487",
+      "target_codepoints": [
+        "U+2DED",
+        "U+0487"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER ES",
+        "COMBINING CYRILLIC POKRYTIE"
+      ]
+    },
+    {
+      "source": "X",
+      "source_codepoint": "U+0058",
+      "source_name": "LATIN CAPITAL LETTER X",
+      "legacy_byte": "0x58",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua677",
+      "target_codepoints": [
+        "U+A677"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER U"
+      ]
+    },
+    {
+      "source": "Y",
+      "source_codepoint": "U+0059",
+      "source_name": "LATIN CAPITAL LETTER Y",
+      "legacy_byte": "0x59",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua64a",
+      "target_codepoints": [
+        "U+A64A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER MONOGRAPH UK"
+      ]
+    },
+    {
+      "source": "Z",
+      "source_codepoint": "U+005A",
+      "source_name": "LATIN CAPITAL LETTER Z",
+      "legacy_byte": "0x5A",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua64d",
+      "target_codepoints": [
+        "U+A64D"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BROAD OMEGA"
+      ]
+    },
+    {
+      "source": "^",
+      "source_codepoint": "U+005E",
+      "source_name": "CIRCUMFLEX ACCENT",
+      "legacy_byte": "0x5E",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0481",
+      "target_codepoints": [
+        "U+0481"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER KOPPA"
+      ]
+    },
+    {
+      "source": "_",
+      "source_codepoint": "U+005F",
+      "source_name": "LOW LINE",
+      "legacy_byte": "0x5F",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0305",
+      "target_codepoints": [
+        "U+0305"
+      ],
+      "target_names": [
+        "COMBINING OVERLINE"
+      ]
+    },
+    {
+      "source": "`",
+      "source_codepoint": "U+0060",
+      "source_name": "GRAVE ACCENT",
+      "legacy_byte": "0x60",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0301",
+      "target_codepoints": [
+        "U+0301"
+      ],
+      "target_names": [
+        "COMBINING ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "a",
+      "source_codepoint": "U+0061",
+      "source_name": "LATIN SMALL LETTER A",
+      "legacy_byte": "0x61",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2def",
+      "target_codepoints": [
+        "U+2DEF"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER HA"
+      ]
+    },
+    {
+      "source": "b",
+      "source_codepoint": "U+0062",
+      "source_name": "LATIN SMALL LETTER B",
+      "legacy_byte": "0x62",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2df0",
+      "target_codepoints": [
+        "U+2DF0"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER TSE"
+      ]
+    },
+    {
+      "source": "c",
+      "source_codepoint": "U+0063",
+      "source_name": "LATIN SMALL LETTER C",
+      "legacy_byte": "0x63",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2df1",
+      "target_codepoints": [
+        "U+2DF1"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER CHE"
+      ]
+    },
+    {
+      "source": "d",
+      "source_codepoint": "U+0064",
+      "source_name": "LATIN SMALL LETTER D",
+      "legacy_byte": "0x64",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2df2",
+      "target_codepoints": [
+        "U+2DF2"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER SHA"
+      ]
+    },
+    {
+      "source": "e",
+      "source_codepoint": "U+0065",
+      "source_name": "LATIN SMALL LETTER E",
+      "legacy_byte": "0x65",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2df3",
+      "target_codepoints": [
+        "U+2DF3"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER SHCHA"
+      ]
+    },
+    {
+      "source": "f",
+      "source_codepoint": "U+0066",
+      "source_name": "LATIN SMALL LETTER F",
+      "legacy_byte": "0x66",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua678",
+      "target_codepoints": [
+        "U+A678"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER HARD SIGN"
+      ]
+    },
+    {
+      "source": "g",
+      "source_codepoint": "U+0067",
+      "source_name": "LATIN SMALL LETTER G",
+      "legacy_byte": "0x67",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua679",
+      "target_codepoints": [
+        "U+A679"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER YERU"
+      ]
+    },
+    {
+      "source": "h",
+      "source_codepoint": "U+0068",
+      "source_name": "LATIN SMALL LETTER H",
+      "legacy_byte": "0x68",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2dfa",
+      "target_codepoints": [
+        "U+2DFA"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER YAT"
+      ]
+    },
+    {
+      "source": "i",
+      "source_codepoint": "U+0069",
+      "source_name": "LATIN SMALL LETTER I",
+      "legacy_byte": "0x69",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2de5",
+      "target_codepoints": [
+        "U+2DE5"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER ZE"
+      ]
+    },
+    {
+      "source": "k",
+      "source_codepoint": "U+006B",
+      "source_name": "LATIN SMALL LETTER K",
+      "legacy_byte": "0x6B",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2df9",
+      "target_codepoints": [
+        "U+2DF9"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER MONOGRAPH UK"
+      ]
+    },
+    {
+      "source": "l",
+      "source_codepoint": "U+006C",
+      "source_name": "LATIN SMALL LETTER L",
+      "legacy_byte": "0x6C",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua69e",
+      "target_codepoints": [
+        "U+A69E"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER EF"
+      ]
+    },
+    {
+      "source": "m",
+      "source_codepoint": "U+006D",
+      "source_name": "LATIN SMALL LETTER M",
+      "legacy_byte": "0x6D",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2df7",
+      "target_codepoints": [
+        "U+2DF7"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER IE"
+      ]
+    },
+    {
+      "source": "n",
+      "source_codepoint": "U+006E",
+      "source_name": "LATIN SMALL LETTER N",
+      "legacy_byte": "0x6E",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u047a",
+      "target_codepoints": [
+        "U+047A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ROUND OMEGA"
+      ]
+    },
+    {
+      "source": "o",
+      "source_codepoint": "U+006F",
+      "source_name": "LATIN SMALL LETTER O",
+      "legacy_byte": "0x6F",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u041e",
+      "target_codepoints": [
+        "U+041E"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER O"
+      ]
+    },
+    {
+      "source": "p",
+      "source_codepoint": "U+0070",
+      "source_name": "LATIN SMALL LETTER P",
+      "legacy_byte": "0x70",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0465",
+      "target_codepoints": [
+        "U+0465"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IOTIFIED E"
+      ]
+    },
+    {
+      "source": "q",
+      "source_codepoint": "U+0071",
+      "source_name": "LATIN SMALL LETTER Q",
+      "legacy_byte": "0x71",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua646",
+      "target_codepoints": [
+        "U+A646"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER IOTA"
+      ]
+    },
+    {
+      "source": "r",
+      "source_codepoint": "U+0072",
+      "source_name": "LATIN SMALL LETTER R",
+      "legacy_byte": "0x72",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua64d",
+      "target_codepoints": [
+        "U+A64D"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BROAD OMEGA"
+      ]
+    },
+    {
+      "source": "s",
+      "source_codepoint": "U+0073",
+      "source_name": "LATIN SMALL LETTER S",
+      "legacy_byte": "0x73",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0455",
+      "target_codepoints": [
+        "U+0455"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER DZE"
+      ]
+    },
+    {
+      "source": "t",
+      "source_codepoint": "U+0074",
+      "source_name": "LATIN SMALL LETTER T",
+      "legacy_byte": "0x74",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua644",
+      "target_codepoints": [
+        "U+A644"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER REVERSED DZE"
+      ]
+    },
+    {
+      "source": "u",
+      "source_codepoint": "U+0075",
+      "source_name": "LATIN SMALL LETTER U",
+      "legacy_byte": "0x75",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua65a",
+      "target_codepoints": [
+        "U+A65A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER BLENDED YUS"
+      ]
+    },
+    {
+      "source": "v",
+      "source_codepoint": "U+0076",
+      "source_name": "LATIN SMALL LETTER V",
+      "legacy_byte": "0x76",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0475",
+      "target_codepoints": [
+        "U+0475"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IZHITSA"
+      ]
+    },
+    {
+      "source": "w",
+      "source_codepoint": "U+0077",
+      "source_name": "LATIN SMALL LETTER W",
+      "legacy_byte": "0x77",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0456\u0486",
+      "target_codepoints": [
+        "U+0456",
+        "U+0486"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I",
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "x",
+      "source_codepoint": "U+0078",
+      "source_name": "LATIN SMALL LETTER X",
+      "legacy_byte": "0x78",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua64b",
+      "target_codepoints": [
+        "U+A64B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER MONOGRAPH UK"
+      ]
+    },
+    {
+      "source": "y",
+      "source_codepoint": "U+0079",
+      "source_name": "LATIN SMALL LETTER Y",
+      "legacy_byte": "0x79",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0423",
+      "target_codepoints": [
+        "U+0423"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER U"
+      ]
+    },
+    {
+      "source": "z",
+      "source_codepoint": "U+007A",
+      "source_name": "LATIN SMALL LETTER Z",
+      "legacy_byte": "0x7A",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0483",
+      "target_codepoints": [
+        "U+0483"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC TITLO"
+      ]
+    },
+    {
+      "source": "\u0080",
+      "source_codepoint": "U+0080",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x80",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0305",
+      "target_codepoints": [
+        "U+0305"
+      ],
+      "target_names": [
+        "COMBINING OVERLINE"
+      ]
+    },
+    {
+      "source": "\u0081",
+      "source_codepoint": "U+0081",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x81",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0483",
+      "target_codepoints": [
+        "U+0483"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC TITLO"
+      ]
+    },
+    {
+      "source": "\u0082",
+      "source_codepoint": "U+0082",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x82",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0303",
+      "target_codepoints": [
+        "U+0303"
+      ],
+      "target_names": [
+        "COMBINING TILDE"
+      ]
+    },
+    {
+      "source": "\u0083",
+      "source_codepoint": "U+0083",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x83",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\ua66f",
+      "target_codepoints": [
+        "U+A66F"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC VZMET"
+      ]
+    },
+    {
+      "source": "\u0084",
+      "source_codepoint": "U+0084",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x84",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0357",
+      "target_codepoints": [
+        "U+0357"
+      ],
+      "target_names": [
+        "COMBINING RIGHT HALF RING ABOVE"
+      ]
+    },
+    {
+      "source": "\u0085",
+      "source_codepoint": "U+0085",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x85",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0351",
+      "target_codepoints": [
+        "U+0351"
+      ],
+      "target_names": [
+        "COMBINING LEFT HALF RING ABOVE"
+      ]
+    },
+    {
+      "source": "\u0086",
+      "source_codepoint": "U+0086",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x86",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0311",
+      "target_codepoints": [
+        "U+0311"
+      ],
+      "target_names": [
+        "COMBINING INVERTED BREVE"
+      ]
+    },
+    {
+      "source": "\u0087",
+      "source_codepoint": "U+0087",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x87",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0306",
+      "target_codepoints": [
+        "U+0306"
+      ],
+      "target_names": [
+        "COMBINING BREVE"
+      ]
+    },
+    {
+      "source": "\u0088",
+      "source_codepoint": "U+0088",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x88",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0486\u0301",
+      "target_codepoints": [
+        "U+0486",
+        "U+0301"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA",
+        "COMBINING ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "\u0089",
+      "source_codepoint": "U+0089",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x89",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0485\u0301",
+      "target_codepoints": [
+        "U+0485",
+        "U+0301"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC DASIA PNEUMATA",
+        "COMBINING ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "\u008a",
+      "source_codepoint": "U+008A",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x8A",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0487",
+      "target_codepoints": [
+        "U+0487"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC POKRYTIE"
+      ]
+    },
+    {
+      "source": "\u008b",
+      "source_codepoint": "U+008B",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x8B",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0472",
+      "target_codepoints": [
+        "U+0472"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER FITA"
+      ]
+    },
+    {
+      "source": "\u008c",
+      "source_codepoint": "U+008C",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x8C",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\ua650",
+      "target_codepoints": [
+        "U+A650"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u008d",
+      "source_codepoint": "U+008D",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x8D",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0483",
+      "target_codepoints": [
+        "U+0483"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC TITLO"
+      ]
+    },
+    {
+      "source": "\u008e",
+      "source_codepoint": "U+008E",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x8E",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0470",
+      "target_codepoints": [
+        "U+0470"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER PSI"
+      ]
+    },
+    {
+      "source": "\u008f",
+      "source_codepoint": "U+008F",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x8F",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u2e43",
+      "target_codepoints": [
+        "U+2E43"
+      ],
+      "target_names": [
+        "DASH WITH LEFT UPTURN"
+      ]
+    },
+    {
+      "source": "\u0090",
+      "source_codepoint": "U+0090",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x90",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0487",
+      "target_codepoints": [
+        "U+0487"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC POKRYTIE"
+      ]
+    },
+    {
+      "source": "\u0091",
+      "source_codepoint": "U+0091",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x91",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0301",
+      "target_codepoints": [
+        "U+0301"
+      ],
+      "target_names": [
+        "COMBINING ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "\u0092",
+      "source_codepoint": "U+0092",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x92",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0300",
+      "target_codepoints": [
+        "U+0300"
+      ],
+      "target_names": [
+        "COMBINING GRAVE ACCENT"
+      ]
+    },
+    {
+      "source": "\u0093",
+      "source_codepoint": "U+0093",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x93",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u030b",
+      "target_codepoints": [
+        "U+030B"
+      ],
+      "target_names": [
+        "COMBINING DOUBLE ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "\u0094",
+      "source_codepoint": "U+0094",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x94",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u030f",
+      "target_codepoints": [
+        "U+030F"
+      ],
+      "target_names": [
+        "COMBINING DOUBLE GRAVE ACCENT"
+      ]
+    },
+    {
+      "source": "\u0095",
+      "source_codepoint": "U+0095",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x95",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u2022",
+      "target_codepoints": [
+        "U+2022"
+      ],
+      "target_names": [
+        "BULLET"
+      ]
+    },
+    {
+      "source": "\u0096",
+      "source_codepoint": "U+0096",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x96",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u2013",
+      "target_codepoints": [
+        "U+2013"
+      ],
+      "target_names": [
+        "EN DASH"
+      ]
+    },
+    {
+      "source": "\u0097",
+      "source_codepoint": "U+0097",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x97",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u047e",
+      "target_codepoints": [
+        "U+047E"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER OT"
+      ]
+    },
+    {
+      "source": "\u0098",
+      "source_codepoint": "U+0098",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x98",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0307",
+      "target_codepoints": [
+        "U+0307"
+      ],
+      "target_names": [
+        "COMBINING DOT ABOVE"
+      ]
+    },
+    {
+      "source": "\u0099",
+      "source_codepoint": "U+0099",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x99",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u046a",
+      "target_codepoints": [
+        "U+046A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER BIG YUS"
+      ]
+    },
+    {
+      "source": "\u009a",
+      "source_codepoint": "U+009A",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x9A",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0468",
+      "target_codepoints": [
+        "U+0468"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER IOTIFIED LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u009b",
+      "source_codepoint": "U+009B",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x9B",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0486\u0300",
+      "target_codepoints": [
+        "U+0486",
+        "U+0300"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA",
+        "COMBINING GRAVE ACCENT"
+      ]
+    },
+    {
+      "source": "\u009c",
+      "source_codepoint": "U+009C",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x9C",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0486",
+      "target_codepoints": [
+        "U+0486"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "\u009d",
+      "source_codepoint": "U+009D",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x9D",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0466",
+      "target_codepoints": [
+        "U+0466"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u009e",
+      "source_codepoint": "U+009E",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x9E",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\u0430\u200d\u0443",
+      "target_codepoints": [
+        "U+0430",
+        "U+200D",
+        "U+0443"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER A",
+        "ZERO WIDTH JOINER",
+        "CYRILLIC SMALL LETTER U"
+      ]
+    },
+    {
+      "source": "\u009f",
+      "source_codepoint": "U+009F",
+      "source_name": "<control or unnamed>",
+      "legacy_byte": "0x9F",
+      "seen_as_decoding": [
+        "latin-1"
+      ],
+      "target": "\ua64d",
+      "target_codepoints": [
+        "U+A64D"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BROAD OMEGA"
+      ]
+    },
+    {
+      "source": "\u00a1",
+      "source_codepoint": "U+00A1",
+      "source_name": "INVERTED EXCLAMATION MARK",
+      "legacy_byte": "0xA1",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0311",
+      "target_codepoints": [
+        "U+0311"
+      ],
+      "target_names": [
+        "COMBINING INVERTED BREVE"
+      ]
+    },
+    {
+      "source": "\u00a2",
+      "source_codepoint": "U+00A2",
+      "source_name": "CENT SIGN",
+      "legacy_byte": "0xA2",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u02b9",
+      "target_codepoints": [
+        "U+02B9"
+      ],
+      "target_names": [
+        "MODIFIER LETTER PRIME"
+      ]
+    },
+    {
+      "source": "\u00a3",
+      "source_codepoint": "U+00A3",
+      "source_name": "POUND SIGN",
+      "legacy_byte": "0xA3",
+      "seen_as_decoding": [
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u2dee",
+      "target_codepoints": [
+        "U+2DEE"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER TE"
+      ]
+    },
+    {
+      "source": "\u00a4",
+      "source_codepoint": "U+00A4",
+      "source_name": "CURRENCY SIGN",
+      "legacy_byte": "0xA4",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua645",
+      "target_codepoints": [
+        "U+A645"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER REVERSED DZE"
+      ]
+    },
+    {
+      "source": "\u00a5",
+      "source_codepoint": "U+00A5",
+      "source_name": "YEN SIGN",
+      "legacy_byte": "0xA5",
+      "seen_as_decoding": [
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua651",
+      "target_codepoints": [
+        "U+A651"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u00a6",
+      "source_codepoint": "U+00A6",
+      "source_name": "BROKEN BAR",
+      "legacy_byte": "0xA6",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua65b",
+      "target_codepoints": [
+        "U+A65B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BLENDED YUS"
+      ]
+    },
+    {
+      "source": "\u00a7",
+      "source_codepoint": "U+00A7",
+      "source_name": "SECTION SIGN",
+      "legacy_byte": "0xA7",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u047f",
+      "target_codepoints": [
+        "U+047F"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER OT"
+      ]
+    },
+    {
+      "source": "\u00a8",
+      "source_codepoint": "U+00A8",
+      "source_name": "DIAERESIS",
+      "legacy_byte": "0xA8",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0308",
+      "target_codepoints": [
+        "U+0308"
+      ],
+      "target_names": [
+        "COMBINING DIAERESIS"
+      ]
+    },
+    {
+      "source": "\u00a9",
+      "source_codepoint": "U+00A9",
+      "source_name": "COPYRIGHT SIGN",
+      "legacy_byte": "0xA9",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u042e",
+      "target_codepoints": [
+        "U+042E"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YU"
+      ]
+    },
+    {
+      "source": "\u00aa",
+      "source_codepoint": "U+00AA",
+      "source_name": "FEMININE ORDINAL INDICATOR",
+      "legacy_byte": "0xAA",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0469",
+      "target_codepoints": [
+        "U+0469"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IOTIFIED LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u00ab",
+      "source_codepoint": "U+00AB",
+      "source_name": "LEFT-POINTING DOUBLE ANGLE QUOTATION MARK",
+      "legacy_byte": "0xAB",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u046d",
+      "target_codepoints": [
+        "U+046D"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IOTIFIED BIG YUS"
+      ]
+    },
+    {
+      "source": "\u00ac",
+      "source_codepoint": "U+00AC",
+      "source_name": "NOT SIGN",
+      "legacy_byte": "0xAC",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0465",
+      "target_codepoints": [
+        "U+0465"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IOTIFIED E"
+      ]
+    },
+    {
+      "source": "\u00ad",
+      "source_codepoint": "U+00AD",
+      "source_name": "SOFT HYPHEN",
+      "legacy_byte": "0xAD",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua656",
+      "target_codepoints": [
+        "U+A656"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER IOTIFIED A"
+      ]
+    },
+    {
+      "source": "\u00ae",
+      "source_codepoint": "U+00AE",
+      "source_name": "REGISTERED SIGN",
+      "legacy_byte": "0xAE",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua659",
+      "target_codepoints": [
+        "U+A659"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER CLOSED LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u00af",
+      "source_codepoint": "U+00AF",
+      "source_name": "MACRON",
+      "legacy_byte": "0xAF",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\ua659",
+      "target_codepoints": [
+        "U+A659"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER CLOSED LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u00b0",
+      "source_codepoint": "U+00B0",
+      "source_name": "DEGREE SIGN",
+      "legacy_byte": "0xB0",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u033e",
+      "target_codepoints": [
+        "U+033E"
+      ],
+      "target_names": [
+        "COMBINING VERTICAL TILDE"
+      ]
+    },
+    {
+      "source": "\u00b1",
+      "source_codepoint": "U+00B1",
+      "source_name": "PLUS-MINUS SIGN",
+      "legacy_byte": "0xB1",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u033e",
+      "target_codepoints": [
+        "U+033E"
+      ],
+      "target_names": [
+        "COMBINING VERTICAL TILDE"
+      ]
+    },
+    {
+      "source": "\u00b2",
+      "source_codepoint": "U+00B2",
+      "source_name": "SUPERSCRIPT TWO",
+      "legacy_byte": "0xB2",
+      "seen_as_decoding": [
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0406\u0308",
+      "target_codepoints": [
+        "U+0406",
+        "U+0308"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER BYELORUSSIAN-UKRAINIAN I",
+        "COMBINING DIAERESIS"
+      ]
+    },
+    {
+      "source": "\u00b3",
+      "source_codepoint": "U+00B3",
+      "source_name": "SUPERSCRIPT THREE",
+      "legacy_byte": "0xB3",
+      "seen_as_decoding": [
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua643",
+      "target_codepoints": [
+        "U+A643"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER DZELO"
+      ]
+    },
+    {
+      "source": "\u00b4",
+      "source_codepoint": "U+00B4",
+      "source_name": "ACUTE ACCENT",
+      "legacy_byte": "0xB4",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0417",
+      "target_codepoints": [
+        "U+0417"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ZE"
+      ]
+    },
+    {
+      "source": "\u00b5",
+      "source_codepoint": "U+00B5",
+      "source_name": "MICRO SIGN",
+      "legacy_byte": "0xB5",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua647",
+      "target_codepoints": [
+        "U+A647"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IOTA"
+      ]
+    },
+    {
+      "source": "\u00b6",
+      "source_codepoint": "U+00B6",
+      "source_name": "PILCROW SIGN",
+      "legacy_byte": "0xB6",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0456",
+      "target_codepoints": [
+        "U+0456"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I"
+      ]
+    },
+    {
+      "source": "\u00b7",
+      "source_codepoint": "U+00B7",
+      "source_name": "MIDDLE DOT",
+      "legacy_byte": "0xB7",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0418",
+      "target_codepoints": [
+        "U+0418"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER I"
+      ]
+    },
+    {
+      "source": "\u00b8",
+      "source_codepoint": "U+00B8",
+      "source_name": "CEDILLA",
+      "legacy_byte": "0xB8",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0438",
+      "target_codepoints": [
+        "U+0438"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER I"
+      ]
+    },
+    {
+      "source": "\u00b9",
+      "source_codepoint": "U+00B9",
+      "source_name": "SUPERSCRIPT ONE",
+      "legacy_byte": "0xB9",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u1c82\u0443",
+      "target_codepoints": [
+        "U+1C82",
+        "U+0443"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER NARROW O",
+        "CYRILLIC SMALL LETTER U"
+      ]
+    },
+    {
+      "source": "\u00ba",
+      "source_codepoint": "U+00BA",
+      "source_name": "MASCULINE ORDINAL INDICATOR",
+      "legacy_byte": "0xBA",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0435\u0486",
+      "target_codepoints": [
+        "U+0435",
+        "U+0486"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IE",
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "\u00bb",
+      "source_codepoint": "U+00BB",
+      "source_name": "RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK",
+      "legacy_byte": "0xBB",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\ua669",
+      "target_codepoints": [
+        "U+A669"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER MONOCULAR O"
+      ]
+    },
+    {
+      "source": "\u00bc",
+      "source_codepoint": "U+00BC",
+      "source_name": "VULGAR FRACTION ONE QUARTER",
+      "legacy_byte": "0xBC",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\ua650",
+      "target_codepoints": [
+        "U+A650"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u00bd",
+      "source_codepoint": "U+00BD",
+      "source_name": "VULGAR FRACTION ONE HALF",
+      "legacy_byte": "0xBD",
+      "seen_as_decoding": [
+        "cp1252",
+        "cp1253",
+        "latin-1"
+      ],
+      "target": "\u0435",
+      "target_codepoints": [
+        "U+0435"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IE"
+      ]
+    },
+    {
+      "source": "\u00be",
+      "source_codepoint": "U+00BE",
+      "source_name": "VULGAR FRACTION THREE QUARTERS",
+      "legacy_byte": "0xBE",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0471",
+      "target_codepoints": [
+        "U+0471"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER PSI"
+      ]
+    },
+    {
+      "source": "\u00bf",
+      "source_codepoint": "U+00BF",
+      "source_name": "INVERTED QUESTION MARK",
+      "legacy_byte": "0xBF",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u046f",
+      "target_codepoints": [
+        "U+046F"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER KSI"
+      ]
+    },
+    {
+      "source": "\u00c0",
+      "source_codepoint": "U+00C0",
+      "source_name": "LATIN CAPITAL LETTER A WITH GRAVE",
+      "legacy_byte": "0xC0",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0410",
+      "target_codepoints": [
+        "U+0410"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER A"
+      ]
+    },
+    {
+      "source": "\u00c1",
+      "source_codepoint": "U+00C1",
+      "source_name": "LATIN CAPITAL LETTER A WITH ACUTE",
+      "legacy_byte": "0xC1",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0411",
+      "target_codepoints": [
+        "U+0411"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER BE"
+      ]
+    },
+    {
+      "source": "\u00c2",
+      "source_codepoint": "U+00C2",
+      "source_name": "LATIN CAPITAL LETTER A WITH CIRCUMFLEX",
+      "legacy_byte": "0xC2",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0412",
+      "target_codepoints": [
+        "U+0412"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER VE"
+      ]
+    },
+    {
+      "source": "\u00c3",
+      "source_codepoint": "U+00C3",
+      "source_name": "LATIN CAPITAL LETTER A WITH TILDE",
+      "legacy_byte": "0xC3",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0413",
+      "target_codepoints": [
+        "U+0413"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER GHE"
+      ]
+    },
+    {
+      "source": "\u00c4",
+      "source_codepoint": "U+00C4",
+      "source_name": "LATIN CAPITAL LETTER A WITH DIAERESIS",
+      "legacy_byte": "0xC4",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0414",
+      "target_codepoints": [
+        "U+0414"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER DE"
+      ]
+    },
+    {
+      "source": "\u00c5",
+      "source_codepoint": "U+00C5",
+      "source_name": "LATIN CAPITAL LETTER A WITH RING ABOVE",
+      "legacy_byte": "0xC5",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0454",
+      "target_codepoints": [
+        "U+0454"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER UKRAINIAN IE"
+      ]
+    },
+    {
+      "source": "\u00c6",
+      "source_codepoint": "U+00C6",
+      "source_name": "LATIN CAPITAL LETTER AE",
+      "legacy_byte": "0xC6",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0416",
+      "target_codepoints": [
+        "U+0416"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ZHE"
+      ]
+    },
+    {
+      "source": "\u00c7",
+      "source_codepoint": "U+00C7",
+      "source_name": "LATIN CAPITAL LETTER C WITH CEDILLA",
+      "legacy_byte": "0xC7",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0437",
+      "target_codepoints": [
+        "U+0437"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ZE"
+      ]
+    },
+    {
+      "source": "\u00c8",
+      "source_codepoint": "U+00C8",
+      "source_name": "LATIN CAPITAL LETTER E WITH GRAVE",
+      "legacy_byte": "0xC8",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0456\u0308",
+      "target_codepoints": [
+        "U+0456",
+        "U+0308"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I",
+        "COMBINING DIAERESIS"
+      ]
+    },
+    {
+      "source": "\u00c9",
+      "source_codepoint": "U+00C9",
+      "source_name": "LATIN CAPITAL LETTER E WITH ACUTE",
+      "legacy_byte": "0xC9",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0460",
+      "target_codepoints": [
+        "U+0460"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER OMEGA"
+      ]
+    },
+    {
+      "source": "\u00ca",
+      "source_codepoint": "U+00CA",
+      "source_name": "LATIN CAPITAL LETTER E WITH CIRCUMFLEX",
+      "legacy_byte": "0xCA",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u041a",
+      "target_codepoints": [
+        "U+041A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER KA"
+      ]
+    },
+    {
+      "source": "\u00cb",
+      "source_codepoint": "U+00CB",
+      "source_name": "LATIN CAPITAL LETTER E WITH DIAERESIS",
+      "legacy_byte": "0xCB",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u041b",
+      "target_codepoints": [
+        "U+041B"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EL"
+      ]
+    },
+    {
+      "source": "\u00cc",
+      "source_codepoint": "U+00CC",
+      "source_name": "LATIN CAPITAL LETTER I WITH GRAVE",
+      "legacy_byte": "0xCC",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u041c",
+      "target_codepoints": [
+        "U+041C"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EM"
+      ]
+    },
+    {
+      "source": "\u00cd",
+      "source_codepoint": "U+00CD",
+      "source_name": "LATIN CAPITAL LETTER I WITH ACUTE",
+      "legacy_byte": "0xCD",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u041d",
+      "target_codepoints": [
+        "U+041D"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EN"
+      ]
+    },
+    {
+      "source": "\u00ce",
+      "source_codepoint": "U+00CE",
+      "source_name": "LATIN CAPITAL LETTER I WITH CIRCUMFLEX",
+      "legacy_byte": "0xCE",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u047b",
+      "target_codepoints": [
+        "U+047B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ROUND OMEGA"
+      ]
+    },
+    {
+      "source": "\u00cf",
+      "source_codepoint": "U+00CF",
+      "source_name": "LATIN CAPITAL LETTER I WITH DIAERESIS",
+      "legacy_byte": "0xCF",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u041f",
+      "target_codepoints": [
+        "U+041F"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER PE"
+      ]
+    },
+    {
+      "source": "\u00d0",
+      "source_codepoint": "U+00D0",
+      "source_name": "LATIN CAPITAL LETTER ETH",
+      "legacy_byte": "0xD0",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0420",
+      "target_codepoints": [
+        "U+0420"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ER"
+      ]
+    },
+    {
+      "source": "\u00d1",
+      "source_codepoint": "U+00D1",
+      "source_name": "LATIN CAPITAL LETTER N WITH TILDE",
+      "legacy_byte": "0xD1",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0421",
+      "target_codepoints": [
+        "U+0421"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ES"
+      ]
+    },
+    {
+      "source": "\u00d2",
+      "source_codepoint": "U+00D2",
+      "source_name": "LATIN CAPITAL LETTER O WITH GRAVE",
+      "legacy_byte": "0xD2",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0422",
+      "target_codepoints": [
+        "U+0422"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER TE"
+      ]
+    },
+    {
+      "source": "\u00d3",
+      "source_codepoint": "U+00D3",
+      "source_name": "LATIN CAPITAL LETTER O WITH ACUTE",
+      "legacy_byte": "0xD3",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0443",
+      "target_codepoints": [
+        "U+0443"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER U"
+      ]
+    },
+    {
+      "source": "\u00d4",
+      "source_codepoint": "U+00D4",
+      "source_name": "LATIN CAPITAL LETTER O WITH CIRCUMFLEX",
+      "legacy_byte": "0xD4",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0473",
+      "target_codepoints": [
+        "U+0473"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER FITA"
+      ]
+    },
+    {
+      "source": "\u00d5",
+      "source_codepoint": "U+00D5",
+      "source_name": "LATIN CAPITAL LETTER O WITH TILDE",
+      "legacy_byte": "0xD5",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0425",
+      "target_codepoints": [
+        "U+0425"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER HA"
+      ]
+    },
+    {
+      "source": "\u00d6",
+      "source_codepoint": "U+00D6",
+      "source_name": "LATIN CAPITAL LETTER O WITH DIAERESIS",
+      "legacy_byte": "0xD6",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0426",
+      "target_codepoints": [
+        "U+0426"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER TSE"
+      ]
+    },
+    {
+      "source": "\u00d7",
+      "source_codepoint": "U+00D7",
+      "source_name": "MULTIPLICATION SIGN",
+      "legacy_byte": "0xD7",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0427",
+      "target_codepoints": [
+        "U+0427"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER CHE"
+      ]
+    },
+    {
+      "source": "\u00d8",
+      "source_codepoint": "U+00D8",
+      "source_name": "LATIN CAPITAL LETTER O WITH STROKE",
+      "legacy_byte": "0xD8",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0428",
+      "target_codepoints": [
+        "U+0428"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SHA"
+      ]
+    },
+    {
+      "source": "\u00d9",
+      "source_codepoint": "U+00D9",
+      "source_name": "LATIN CAPITAL LETTER U WITH GRAVE",
+      "legacy_byte": "0xD9",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0429",
+      "target_codepoints": [
+        "U+0429"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SHCHA"
+      ]
+    },
+    {
+      "source": "\u00da",
+      "source_codepoint": "U+00DA",
+      "source_name": "LATIN CAPITAL LETTER U WITH ACUTE",
+      "legacy_byte": "0xDA",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u042a",
+      "target_codepoints": [
+        "U+042A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER HARD SIGN"
+      ]
+    },
+    {
+      "source": "\u00db",
+      "source_codepoint": "U+00DB",
+      "source_name": "LATIN CAPITAL LETTER U WITH CIRCUMFLEX",
+      "legacy_byte": "0xDB",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\ua651",
+      "target_codepoints": [
+        "U+A651"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u00dc",
+      "source_codepoint": "U+00DC",
+      "source_name": "LATIN CAPITAL LETTER U WITH DIAERESIS",
+      "legacy_byte": "0xDC",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u042c",
+      "target_codepoints": [
+        "U+042C"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SOFT SIGN"
+      ]
+    },
+    {
+      "source": "\u00dd",
+      "source_codepoint": "U+00DD",
+      "source_name": "LATIN CAPITAL LETTER Y WITH ACUTE",
+      "legacy_byte": "0xDD",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0462",
+      "target_codepoints": [
+        "U+0462"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YAT"
+      ]
+    },
+    {
+      "source": "\u00de",
+      "source_codepoint": "U+00DE",
+      "source_name": "LATIN CAPITAL LETTER THORN",
+      "legacy_byte": "0xDE",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u046b",
+      "target_codepoints": [
+        "U+046B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BIG YUS"
+      ]
+    },
+    {
+      "source": "\u00df",
+      "source_codepoint": "U+00DF",
+      "source_name": "LATIN SMALL LETTER SHARP S",
+      "legacy_byte": "0xDF",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0467",
+      "target_codepoints": [
+        "U+0467"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u00e0",
+      "source_codepoint": "U+00E0",
+      "source_name": "LATIN SMALL LETTER A WITH GRAVE",
+      "legacy_byte": "0xE0",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0430",
+      "target_codepoints": [
+        "U+0430"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER A"
+      ]
+    },
+    {
+      "source": "\u00e1",
+      "source_codepoint": "U+00E1",
+      "source_name": "LATIN SMALL LETTER A WITH ACUTE",
+      "legacy_byte": "0xE1",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0431",
+      "target_codepoints": [
+        "U+0431"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BE"
+      ]
+    },
+    {
+      "source": "\u00e2",
+      "source_codepoint": "U+00E2",
+      "source_name": "LATIN SMALL LETTER A WITH CIRCUMFLEX",
+      "legacy_byte": "0xE2",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0432",
+      "target_codepoints": [
+        "U+0432"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER VE"
+      ]
+    },
+    {
+      "source": "\u00e3",
+      "source_codepoint": "U+00E3",
+      "source_name": "LATIN SMALL LETTER A WITH TILDE",
+      "legacy_byte": "0xE3",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0433",
+      "target_codepoints": [
+        "U+0433"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER GHE"
+      ]
+    },
+    {
+      "source": "\u00e4",
+      "source_codepoint": "U+00E4",
+      "source_name": "LATIN SMALL LETTER A WITH DIAERESIS",
+      "legacy_byte": "0xE4",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0434",
+      "target_codepoints": [
+        "U+0434"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER DE"
+      ]
+    },
+    {
+      "source": "\u00e5",
+      "source_codepoint": "U+00E5",
+      "source_name": "LATIN SMALL LETTER A WITH RING ABOVE",
+      "legacy_byte": "0xE5",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0435",
+      "target_codepoints": [
+        "U+0435"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IE"
+      ]
+    },
+    {
+      "source": "\u00e6",
+      "source_codepoint": "U+00E6",
+      "source_name": "LATIN SMALL LETTER AE",
+      "legacy_byte": "0xE6",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0436",
+      "target_codepoints": [
+        "U+0436"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ZHE"
+      ]
+    },
+    {
+      "source": "\u00e7",
+      "source_codepoint": "U+00E7",
+      "source_name": "LATIN SMALL LETTER C WITH CEDILLA",
+      "legacy_byte": "0xE7",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\ua641",
+      "target_codepoints": [
+        "U+A641"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ZEMLYA"
+      ]
+    },
+    {
+      "source": "\u00e8",
+      "source_codepoint": "U+00E8",
+      "source_name": "LATIN SMALL LETTER E WITH GRAVE",
+      "legacy_byte": "0xE8",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0438",
+      "target_codepoints": [
+        "U+0438"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER I"
+      ]
+    },
+    {
+      "source": "\u00e9",
+      "source_codepoint": "U+00E9",
+      "source_name": "LATIN SMALL LETTER E WITH ACUTE",
+      "legacy_byte": "0xE9",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0461",
+      "target_codepoints": [
+        "U+0461"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER OMEGA"
+      ]
+    },
+    {
+      "source": "\u00ea",
+      "source_codepoint": "U+00EA",
+      "source_name": "LATIN SMALL LETTER E WITH CIRCUMFLEX",
+      "legacy_byte": "0xEA",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u043a",
+      "target_codepoints": [
+        "U+043A"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER KA"
+      ]
+    },
+    {
+      "source": "\u00eb",
+      "source_codepoint": "U+00EB",
+      "source_name": "LATIN SMALL LETTER E WITH DIAERESIS",
+      "legacy_byte": "0xEB",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u043b",
+      "target_codepoints": [
+        "U+043B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER EL"
+      ]
+    },
+    {
+      "source": "\u00ec",
+      "source_codepoint": "U+00EC",
+      "source_name": "LATIN SMALL LETTER I WITH GRAVE",
+      "legacy_byte": "0xEC",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u043c",
+      "target_codepoints": [
+        "U+043C"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER EM"
+      ]
+    },
+    {
+      "source": "\u00ed",
+      "source_codepoint": "U+00ED",
+      "source_name": "LATIN SMALL LETTER I WITH ACUTE",
+      "legacy_byte": "0xED",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u043d",
+      "target_codepoints": [
+        "U+043D"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER EN"
+      ]
+    },
+    {
+      "source": "\u00ee",
+      "source_codepoint": "U+00EE",
+      "source_name": "LATIN SMALL LETTER I WITH CIRCUMFLEX",
+      "legacy_byte": "0xEE",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u043e",
+      "target_codepoints": [
+        "U+043E"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER O"
+      ]
+    },
+    {
+      "source": "\u00ef",
+      "source_codepoint": "U+00EF",
+      "source_name": "LATIN SMALL LETTER I WITH DIAERESIS",
+      "legacy_byte": "0xEF",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u043f",
+      "target_codepoints": [
+        "U+043F"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER PE"
+      ]
+    },
+    {
+      "source": "\u00f0",
+      "source_codepoint": "U+00F0",
+      "source_name": "LATIN SMALL LETTER ETH",
+      "legacy_byte": "0xF0",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0440",
+      "target_codepoints": [
+        "U+0440"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ER"
+      ]
+    },
+    {
+      "source": "\u00f1",
+      "source_codepoint": "U+00F1",
+      "source_name": "LATIN SMALL LETTER N WITH TILDE",
+      "legacy_byte": "0xF1",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0441",
+      "target_codepoints": [
+        "U+0441"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ES"
+      ]
+    },
+    {
+      "source": "\u00f2",
+      "source_codepoint": "U+00F2",
+      "source_name": "LATIN SMALL LETTER O WITH GRAVE",
+      "legacy_byte": "0xF2",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0442",
+      "target_codepoints": [
+        "U+0442"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER TE"
+      ]
+    },
+    {
+      "source": "\u00f3",
+      "source_codepoint": "U+00F3",
+      "source_name": "LATIN SMALL LETTER O WITH ACUTE",
+      "legacy_byte": "0xF3",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\ua64b",
+      "target_codepoints": [
+        "U+A64B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER MONOGRAPH UK"
+      ]
+    },
+    {
+      "source": "\u00f4",
+      "source_codepoint": "U+00F4",
+      "source_name": "LATIN SMALL LETTER O WITH CIRCUMFLEX",
+      "legacy_byte": "0xF4",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0444",
+      "target_codepoints": [
+        "U+0444"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER EF"
+      ]
+    },
+    {
+      "source": "\u00f5",
+      "source_codepoint": "U+00F5",
+      "source_name": "LATIN SMALL LETTER O WITH TILDE",
+      "legacy_byte": "0xF5",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0445",
+      "target_codepoints": [
+        "U+0445"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER HA"
+      ]
+    },
+    {
+      "source": "\u00f6",
+      "source_codepoint": "U+00F6",
+      "source_name": "LATIN SMALL LETTER O WITH DIAERESIS",
+      "legacy_byte": "0xF6",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0446",
+      "target_codepoints": [
+        "U+0446"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER TSE"
+      ]
+    },
+    {
+      "source": "\u00f7",
+      "source_codepoint": "U+00F7",
+      "source_name": "DIVISION SIGN",
+      "legacy_byte": "0xF7",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0447",
+      "target_codepoints": [
+        "U+0447"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER CHE"
+      ]
+    },
+    {
+      "source": "\u00f8",
+      "source_codepoint": "U+00F8",
+      "source_name": "LATIN SMALL LETTER O WITH STROKE",
+      "legacy_byte": "0xF8",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0448",
+      "target_codepoints": [
+        "U+0448"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER SHA"
+      ]
+    },
+    {
+      "source": "\u00f9",
+      "source_codepoint": "U+00F9",
+      "source_name": "LATIN SMALL LETTER U WITH GRAVE",
+      "legacy_byte": "0xF9",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0449",
+      "target_codepoints": [
+        "U+0449"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER SHCHA"
+      ]
+    },
+    {
+      "source": "\u00fa",
+      "source_codepoint": "U+00FA",
+      "source_name": "LATIN SMALL LETTER U WITH ACUTE",
+      "legacy_byte": "0xFA",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u044a",
+      "target_codepoints": [
+        "U+044A"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER HARD SIGN"
+      ]
+    },
+    {
+      "source": "\u00fb",
+      "source_codepoint": "U+00FB",
+      "source_name": "LATIN SMALL LETTER U WITH CIRCUMFLEX",
+      "legacy_byte": "0xFB",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u044b",
+      "target_codepoints": [
+        "U+044B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YERU"
+      ]
+    },
+    {
+      "source": "\u00fc",
+      "source_codepoint": "U+00FC",
+      "source_name": "LATIN SMALL LETTER U WITH DIAERESIS",
+      "legacy_byte": "0xFC",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u044c",
+      "target_codepoints": [
+        "U+044C"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER SOFT SIGN"
+      ]
+    },
+    {
+      "source": "\u00fd",
+      "source_codepoint": "U+00FD",
+      "source_name": "LATIN SMALL LETTER Y WITH ACUTE",
+      "legacy_byte": "0xFD",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u0463",
+      "target_codepoints": [
+        "U+0463"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YAT"
+      ]
+    },
+    {
+      "source": "\u00fe",
+      "source_codepoint": "U+00FE",
+      "source_name": "LATIN SMALL LETTER THORN",
+      "legacy_byte": "0xFE",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\u044e",
+      "target_codepoints": [
+        "U+044E"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YU"
+      ]
+    },
+    {
+      "source": "\u00ff",
+      "source_codepoint": "U+00FF",
+      "source_name": "LATIN SMALL LETTER Y WITH DIAERESIS",
+      "legacy_byte": "0xFF",
+      "seen_as_decoding": [
+        "cp1252",
+        "latin-1"
+      ],
+      "target": "\ua657",
+      "target_codepoints": [
+        "U+A657"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IOTIFIED A"
+      ]
+    },
+    {
+      "source": "\u0102",
+      "source_codepoint": "U+0102",
+      "source_name": "LATIN CAPITAL LETTER A WITH BREVE",
+      "legacy_byte": "0xC3",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0413",
+      "target_codepoints": [
+        "U+0413"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER GHE"
+      ]
+    },
+    {
+      "source": "\u0103",
+      "source_codepoint": "U+0103",
+      "source_name": "LATIN SMALL LETTER A WITH BREVE",
+      "legacy_byte": "0xE3",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0433",
+      "target_codepoints": [
+        "U+0433"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER GHE"
+      ]
+    },
+    {
+      "source": "\u0104",
+      "source_codepoint": "U+0104",
+      "source_name": "LATIN CAPITAL LETTER A WITH OGONEK",
+      "legacy_byte": "0xA5",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\ua651",
+      "target_codepoints": [
+        "U+A651"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u0105",
+      "source_codepoint": "U+0105",
+      "source_name": "LATIN SMALL LETTER A WITH OGONEK",
+      "legacy_byte": "0xB9",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u1c82\u0443",
+      "target_codepoints": [
+        "U+1C82",
+        "U+0443"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER NARROW O",
+        "CYRILLIC SMALL LETTER U"
+      ]
+    },
+    {
+      "source": "\u0106",
+      "source_codepoint": "U+0106",
+      "source_name": "LATIN CAPITAL LETTER C WITH ACUTE",
+      "legacy_byte": "0xC6",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0416",
+      "target_codepoints": [
+        "U+0416"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ZHE"
+      ]
+    },
+    {
+      "source": "\u010c",
+      "source_codepoint": "U+010C",
+      "source_name": "LATIN CAPITAL LETTER C WITH CARON",
+      "legacy_byte": "0xC8",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0456\u0308",
+      "target_codepoints": [
+        "U+0456",
+        "U+0308"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I",
+        "COMBINING DIAERESIS"
+      ]
+    },
+    {
+      "source": "\u010e",
+      "source_codepoint": "U+010E",
+      "source_name": "LATIN CAPITAL LETTER D WITH CARON",
+      "legacy_byte": "0xCF",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u041f",
+      "target_codepoints": [
+        "U+041F"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER PE"
+      ]
+    },
+    {
+      "source": "\u0110",
+      "source_codepoint": "U+0110",
+      "source_name": "LATIN CAPITAL LETTER D WITH STROKE",
+      "legacy_byte": "0xD0",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0420",
+      "target_codepoints": [
+        "U+0420"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ER"
+      ]
+    },
+    {
+      "source": "\u0118",
+      "source_codepoint": "U+0118",
+      "source_name": "LATIN CAPITAL LETTER E WITH OGONEK",
+      "legacy_byte": "0xCA",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u041a",
+      "target_codepoints": [
+        "U+041A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER KA"
+      ]
+    },
+    {
+      "source": "\u011a",
+      "source_codepoint": "U+011A",
+      "source_name": "LATIN CAPITAL LETTER E WITH CARON",
+      "legacy_byte": "0xCC",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u041c",
+      "target_codepoints": [
+        "U+041C"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EM"
+      ]
+    },
+    {
+      "source": "\u011e",
+      "source_codepoint": "U+011E",
+      "source_name": "LATIN CAPITAL LETTER G WITH BREVE",
+      "legacy_byte": "0xD0",
+      "seen_as_decoding": [
+        "cp1254"
+      ],
+      "target": "\u0420",
+      "target_codepoints": [
+        "U+0420"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ER"
+      ]
+    },
+    {
+      "source": "\u0130",
+      "source_codepoint": "U+0130",
+      "source_name": "LATIN CAPITAL LETTER I WITH DOT ABOVE",
+      "legacy_byte": "0xDD",
+      "seen_as_decoding": [
+        "cp1254"
+      ],
+      "target": "\u0462",
+      "target_codepoints": [
+        "U+0462"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YAT"
+      ]
+    },
+    {
+      "source": "\u0131",
+      "source_codepoint": "U+0131",
+      "source_name": "LATIN SMALL LETTER DOTLESS I",
+      "legacy_byte": "0xFD",
+      "seen_as_decoding": [
+        "cp1254"
+      ],
+      "target": "\u0463",
+      "target_codepoints": [
+        "U+0463"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YAT"
+      ]
+    },
+    {
+      "source": "\u0139",
+      "source_codepoint": "U+0139",
+      "source_name": "LATIN CAPITAL LETTER L WITH ACUTE",
+      "legacy_byte": "0xC5",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0454",
+      "target_codepoints": [
+        "U+0454"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER UKRAINIAN IE"
+      ]
+    },
+    {
+      "source": "\u013d",
+      "source_codepoint": "U+013D",
+      "source_name": "LATIN CAPITAL LETTER L WITH CARON",
+      "legacy_byte": "0xBC",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\ua650",
+      "target_codepoints": [
+        "U+A650"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u013e",
+      "source_codepoint": "U+013E",
+      "source_name": "LATIN SMALL LETTER L WITH CARON",
+      "legacy_byte": "0xBE",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0471",
+      "target_codepoints": [
+        "U+0471"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER PSI"
+      ]
+    },
+    {
+      "source": "\u0141",
+      "source_codepoint": "U+0141",
+      "source_name": "LATIN CAPITAL LETTER L WITH STROKE",
+      "legacy_byte": "0xA3",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u2dee",
+      "target_codepoints": [
+        "U+2DEE"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER TE"
+      ]
+    },
+    {
+      "source": "\u0142",
+      "source_codepoint": "U+0142",
+      "source_name": "LATIN SMALL LETTER L WITH STROKE",
+      "legacy_byte": "0xB3",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\ua643",
+      "target_codepoints": [
+        "U+A643"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER DZELO"
+      ]
+    },
+    {
+      "source": "\u0143",
+      "source_codepoint": "U+0143",
+      "source_name": "LATIN CAPITAL LETTER N WITH ACUTE",
+      "legacy_byte": "0xD1",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0421",
+      "target_codepoints": [
+        "U+0421"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ES"
+      ]
+    },
+    {
+      "source": "\u0147",
+      "source_codepoint": "U+0147",
+      "source_name": "LATIN CAPITAL LETTER N WITH CARON",
+      "legacy_byte": "0xD2",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0422",
+      "target_codepoints": [
+        "U+0422"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER TE"
+      ]
+    },
+    {
+      "source": "\u0150",
+      "source_codepoint": "U+0150",
+      "source_name": "LATIN CAPITAL LETTER O WITH DOUBLE ACUTE",
+      "legacy_byte": "0xD5",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0425",
+      "target_codepoints": [
+        "U+0425"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER HA"
+      ]
+    },
+    {
+      "source": "\u0152",
+      "source_codepoint": "U+0152",
+      "source_name": "LATIN CAPITAL LIGATURE OE",
+      "legacy_byte": "0x8C",
+      "seen_as_decoding": [
+        "cp1252"
+      ],
+      "target": "\ua650",
+      "target_codepoints": [
+        "U+A650"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u0153",
+      "source_codepoint": "U+0153",
+      "source_name": "LATIN SMALL LIGATURE OE",
+      "legacy_byte": "0x9C",
+      "seen_as_decoding": [
+        "cp1252"
+      ],
+      "target": "\u0486",
+      "target_codepoints": [
+        "U+0486"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "\u0154",
+      "source_codepoint": "U+0154",
+      "source_name": "LATIN CAPITAL LETTER R WITH ACUTE",
+      "legacy_byte": "0xC0",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0410",
+      "target_codepoints": [
+        "U+0410"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER A"
+      ]
+    },
+    {
+      "source": "\u0155",
+      "source_codepoint": "U+0155",
+      "source_name": "LATIN SMALL LETTER R WITH ACUTE",
+      "legacy_byte": "0xE0",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0430",
+      "target_codepoints": [
+        "U+0430"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER A"
+      ]
+    },
+    {
+      "source": "\u0158",
+      "source_codepoint": "U+0158",
+      "source_name": "LATIN CAPITAL LETTER R WITH CARON",
+      "legacy_byte": "0xD8",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0428",
+      "target_codepoints": [
+        "U+0428"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SHA"
+      ]
+    },
+    {
+      "source": "\u015a",
+      "source_codepoint": "U+015A",
+      "source_name": "LATIN CAPITAL LETTER S WITH ACUTE",
+      "legacy_byte": "0x8C",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\ua650",
+      "target_codepoints": [
+        "U+A650"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u015b",
+      "source_codepoint": "U+015B",
+      "source_name": "LATIN SMALL LETTER S WITH ACUTE",
+      "legacy_byte": "0x9C",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0486",
+      "target_codepoints": [
+        "U+0486"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "\u015e",
+      "source_codepoint": "U+015E",
+      "source_name": "LATIN CAPITAL LETTER S WITH CEDILLA",
+      "legacy_byte": "0xAA",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0469",
+      "target_codepoints": [
+        "U+0469"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IOTIFIED LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u015f",
+      "source_codepoint": "U+015F",
+      "source_name": "LATIN SMALL LETTER S WITH CEDILLA",
+      "legacy_byte": "0xBA",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0435\u0486",
+      "target_codepoints": [
+        "U+0435",
+        "U+0486"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IE",
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "\u0160",
+      "source_codepoint": "U+0160",
+      "source_name": "LATIN CAPITAL LETTER S WITH CARON",
+      "legacy_byte": "0x8A",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252"
+      ],
+      "target": "\u0487",
+      "target_codepoints": [
+        "U+0487"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC POKRYTIE"
+      ]
+    },
+    {
+      "source": "\u0161",
+      "source_codepoint": "U+0161",
+      "source_name": "LATIN SMALL LETTER S WITH CARON",
+      "legacy_byte": "0x9A",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252"
+      ],
+      "target": "\u0468",
+      "target_codepoints": [
+        "U+0468"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER IOTIFIED LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u0162",
+      "source_codepoint": "U+0162",
+      "source_name": "LATIN CAPITAL LETTER T WITH CEDILLA",
+      "legacy_byte": "0xDE",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u046b",
+      "target_codepoints": [
+        "U+046B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BIG YUS"
+      ]
+    },
+    {
+      "source": "\u0164",
+      "source_codepoint": "U+0164",
+      "source_name": "LATIN CAPITAL LETTER T WITH CARON",
+      "legacy_byte": "0x8D",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0483",
+      "target_codepoints": [
+        "U+0483"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC TITLO"
+      ]
+    },
+    {
+      "source": "\u0165",
+      "source_codepoint": "U+0165",
+      "source_name": "LATIN SMALL LETTER T WITH CARON",
+      "legacy_byte": "0x9D",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0466",
+      "target_codepoints": [
+        "U+0466"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u016e",
+      "source_codepoint": "U+016E",
+      "source_name": "LATIN CAPITAL LETTER U WITH RING ABOVE",
+      "legacy_byte": "0xD9",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0429",
+      "target_codepoints": [
+        "U+0429"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SHCHA"
+      ]
+    },
+    {
+      "source": "\u0170",
+      "source_codepoint": "U+0170",
+      "source_name": "LATIN CAPITAL LETTER U WITH DOUBLE ACUTE",
+      "legacy_byte": "0xDB",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\ua651",
+      "target_codepoints": [
+        "U+A651"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u0178",
+      "source_codepoint": "U+0178",
+      "source_name": "LATIN CAPITAL LETTER Y WITH DIAERESIS",
+      "legacy_byte": "0x9F",
+      "seen_as_decoding": [
+        "cp1252"
+      ],
+      "target": "\ua64d",
+      "target_codepoints": [
+        "U+A64D"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BROAD OMEGA"
+      ]
+    },
+    {
+      "source": "\u0179",
+      "source_codepoint": "U+0179",
+      "source_name": "LATIN CAPITAL LETTER Z WITH ACUTE",
+      "legacy_byte": "0x8F",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u2e43",
+      "target_codepoints": [
+        "U+2E43"
+      ],
+      "target_names": [
+        "DASH WITH LEFT UPTURN"
+      ]
+    },
+    {
+      "source": "\u017a",
+      "source_codepoint": "U+017A",
+      "source_name": "LATIN SMALL LETTER Z WITH ACUTE",
+      "legacy_byte": "0x9F",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\ua64d",
+      "target_codepoints": [
+        "U+A64D"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BROAD OMEGA"
+      ]
+    },
+    {
+      "source": "\u017b",
+      "source_codepoint": "U+017B",
+      "source_name": "LATIN CAPITAL LETTER Z WITH DOT ABOVE",
+      "legacy_byte": "0xAF",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\ua659",
+      "target_codepoints": [
+        "U+A659"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER CLOSED LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u017c",
+      "source_codepoint": "U+017C",
+      "source_name": "LATIN SMALL LETTER Z WITH DOT ABOVE",
+      "legacy_byte": "0xBF",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u046f",
+      "target_codepoints": [
+        "U+046F"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER KSI"
+      ]
+    },
+    {
+      "source": "\u017d",
+      "source_codepoint": "U+017D",
+      "source_name": "LATIN CAPITAL LETTER Z WITH CARON",
+      "legacy_byte": "0x8E",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252"
+      ],
+      "target": "\u0470",
+      "target_codepoints": [
+        "U+0470"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER PSI"
+      ]
+    },
+    {
+      "source": "\u017e",
+      "source_codepoint": "U+017E",
+      "source_name": "LATIN SMALL LETTER Z WITH CARON",
+      "legacy_byte": "0x9E",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1252"
+      ],
+      "target": "\u0430\u200d\u0443",
+      "target_codepoints": [
+        "U+0430",
+        "U+200D",
+        "U+0443"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER A",
+        "ZERO WIDTH JOINER",
+        "CYRILLIC SMALL LETTER U"
+      ]
+    },
+    {
+      "source": "\u0192",
+      "source_codepoint": "U+0192",
+      "source_name": "LATIN SMALL LETTER F WITH HOOK",
+      "legacy_byte": "0x83",
+      "seen_as_decoding": [
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\ua66f",
+      "target_codepoints": [
+        "U+A66F"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC VZMET"
+      ]
+    },
+    {
+      "source": "\u02c6",
+      "source_codepoint": "U+02C6",
+      "source_name": "MODIFIER LETTER CIRCUMFLEX ACCENT",
+      "legacy_byte": "0x88",
+      "seen_as_decoding": [
+        "cp1252"
+      ],
+      "target": "\u0486\u0301",
+      "target_codepoints": [
+        "U+0486",
+        "U+0301"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA",
+        "COMBINING ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "\u02c7",
+      "source_codepoint": "U+02C7",
+      "source_name": "CARON",
+      "legacy_byte": "0xA1",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0311",
+      "target_codepoints": [
+        "U+0311"
+      ],
+      "target_names": [
+        "COMBINING INVERTED BREVE"
+      ]
+    },
+    {
+      "source": "\u02d8",
+      "source_codepoint": "U+02D8",
+      "source_name": "BREVE",
+      "legacy_byte": "0xA2",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u02b9",
+      "target_codepoints": [
+        "U+02B9"
+      ],
+      "target_names": [
+        "MODIFIER LETTER PRIME"
+      ]
+    },
+    {
+      "source": "\u02d9",
+      "source_codepoint": "U+02D9",
+      "source_name": "DOT ABOVE",
+      "legacy_byte": "0xFF",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\ua657",
+      "target_codepoints": [
+        "U+A657"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IOTIFIED A"
+      ]
+    },
+    {
+      "source": "\u02db",
+      "source_codepoint": "U+02DB",
+      "source_name": "OGONEK",
+      "legacy_byte": "0xB2",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0406\u0308",
+      "target_codepoints": [
+        "U+0406",
+        "U+0308"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER BYELORUSSIAN-UKRAINIAN I",
+        "COMBINING DIAERESIS"
+      ]
+    },
+    {
+      "source": "\u02dc",
+      "source_codepoint": "U+02DC",
+      "source_name": "SMALL TILDE",
+      "legacy_byte": "0x98",
+      "seen_as_decoding": [
+        "cp1252"
+      ],
+      "target": "\u0307",
+      "target_codepoints": [
+        "U+0307"
+      ],
+      "target_names": [
+        "COMBINING DOT ABOVE"
+      ]
+    },
+    {
+      "source": "\u02dd",
+      "source_codepoint": "U+02DD",
+      "source_name": "DOUBLE ACUTE ACCENT",
+      "legacy_byte": "0xBD",
+      "seen_as_decoding": [
+        "cp1250"
+      ],
+      "target": "\u0435",
+      "target_codepoints": [
+        "U+0435"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IE"
+      ]
+    },
+    {
+      "source": "\u0385",
+      "source_codepoint": "U+0385",
+      "source_name": "GREEK DIALYTIKA TONOS",
+      "legacy_byte": "0xA1",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0311",
+      "target_codepoints": [
+        "U+0311"
+      ],
+      "target_names": [
+        "COMBINING INVERTED BREVE"
+      ]
+    },
+    {
+      "source": "\u0386",
+      "source_codepoint": "U+0386",
+      "source_name": "GREEK CAPITAL LETTER ALPHA WITH TONOS",
+      "legacy_byte": "0xA2",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u02b9",
+      "target_codepoints": [
+        "U+02B9"
+      ],
+      "target_names": [
+        "MODIFIER LETTER PRIME"
+      ]
+    },
+    {
+      "source": "\u0388",
+      "source_codepoint": "U+0388",
+      "source_name": "GREEK CAPITAL LETTER EPSILON WITH TONOS",
+      "legacy_byte": "0xB8",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0438",
+      "target_codepoints": [
+        "U+0438"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER I"
+      ]
+    },
+    {
+      "source": "\u0389",
+      "source_codepoint": "U+0389",
+      "source_name": "GREEK CAPITAL LETTER ETA WITH TONOS",
+      "legacy_byte": "0xB9",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u1c82\u0443",
+      "target_codepoints": [
+        "U+1C82",
+        "U+0443"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER NARROW O",
+        "CYRILLIC SMALL LETTER U"
+      ]
+    },
+    {
+      "source": "\u038a",
+      "source_codepoint": "U+038A",
+      "source_name": "GREEK CAPITAL LETTER IOTA WITH TONOS",
+      "legacy_byte": "0xBA",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0435\u0486",
+      "target_codepoints": [
+        "U+0435",
+        "U+0486"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IE",
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "\u038c",
+      "source_codepoint": "U+038C",
+      "source_name": "GREEK CAPITAL LETTER OMICRON WITH TONOS",
+      "legacy_byte": "0xBC",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\ua650",
+      "target_codepoints": [
+        "U+A650"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u038e",
+      "source_codepoint": "U+038E",
+      "source_name": "GREEK CAPITAL LETTER UPSILON WITH TONOS",
+      "legacy_byte": "0xBE",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0471",
+      "target_codepoints": [
+        "U+0471"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER PSI"
+      ]
+    },
+    {
+      "source": "\u038f",
+      "source_codepoint": "U+038F",
+      "source_name": "GREEK CAPITAL LETTER OMEGA WITH TONOS",
+      "legacy_byte": "0xBF",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u046f",
+      "target_codepoints": [
+        "U+046F"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER KSI"
+      ]
+    },
+    {
+      "source": "\u0390",
+      "source_codepoint": "U+0390",
+      "source_name": "GREEK SMALL LETTER IOTA WITH DIALYTIKA AND TONOS",
+      "legacy_byte": "0xC0",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0410",
+      "target_codepoints": [
+        "U+0410"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER A"
+      ]
+    },
+    {
+      "source": "\u0391",
+      "source_codepoint": "U+0391",
+      "source_name": "GREEK CAPITAL LETTER ALPHA",
+      "legacy_byte": "0xC1",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0411",
+      "target_codepoints": [
+        "U+0411"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER BE"
+      ]
+    },
+    {
+      "source": "\u0392",
+      "source_codepoint": "U+0392",
+      "source_name": "GREEK CAPITAL LETTER BETA",
+      "legacy_byte": "0xC2",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0412",
+      "target_codepoints": [
+        "U+0412"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER VE"
+      ]
+    },
+    {
+      "source": "\u0393",
+      "source_codepoint": "U+0393",
+      "source_name": "GREEK CAPITAL LETTER GAMMA",
+      "legacy_byte": "0xC3",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0413",
+      "target_codepoints": [
+        "U+0413"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER GHE"
+      ]
+    },
+    {
+      "source": "\u0394",
+      "source_codepoint": "U+0394",
+      "source_name": "GREEK CAPITAL LETTER DELTA",
+      "legacy_byte": "0xC4",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0414",
+      "target_codepoints": [
+        "U+0414"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER DE"
+      ]
+    },
+    {
+      "source": "\u0395",
+      "source_codepoint": "U+0395",
+      "source_name": "GREEK CAPITAL LETTER EPSILON",
+      "legacy_byte": "0xC5",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0454",
+      "target_codepoints": [
+        "U+0454"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER UKRAINIAN IE"
+      ]
+    },
+    {
+      "source": "\u0396",
+      "source_codepoint": "U+0396",
+      "source_name": "GREEK CAPITAL LETTER ZETA",
+      "legacy_byte": "0xC6",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0416",
+      "target_codepoints": [
+        "U+0416"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ZHE"
+      ]
+    },
+    {
+      "source": "\u0397",
+      "source_codepoint": "U+0397",
+      "source_name": "GREEK CAPITAL LETTER ETA",
+      "legacy_byte": "0xC7",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0437",
+      "target_codepoints": [
+        "U+0437"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ZE"
+      ]
+    },
+    {
+      "source": "\u0398",
+      "source_codepoint": "U+0398",
+      "source_name": "GREEK CAPITAL LETTER THETA",
+      "legacy_byte": "0xC8",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0456\u0308",
+      "target_codepoints": [
+        "U+0456",
+        "U+0308"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I",
+        "COMBINING DIAERESIS"
+      ]
+    },
+    {
+      "source": "\u0399",
+      "source_codepoint": "U+0399",
+      "source_name": "GREEK CAPITAL LETTER IOTA",
+      "legacy_byte": "0xC9",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0460",
+      "target_codepoints": [
+        "U+0460"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER OMEGA"
+      ]
+    },
+    {
+      "source": "\u039a",
+      "source_codepoint": "U+039A",
+      "source_name": "GREEK CAPITAL LETTER KAPPA",
+      "legacy_byte": "0xCA",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u041a",
+      "target_codepoints": [
+        "U+041A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER KA"
+      ]
+    },
+    {
+      "source": "\u039b",
+      "source_codepoint": "U+039B",
+      "source_name": "GREEK CAPITAL LETTER LAMDA",
+      "legacy_byte": "0xCB",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u041b",
+      "target_codepoints": [
+        "U+041B"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EL"
+      ]
+    },
+    {
+      "source": "\u039c",
+      "source_codepoint": "U+039C",
+      "source_name": "GREEK CAPITAL LETTER MU",
+      "legacy_byte": "0xCC",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u041c",
+      "target_codepoints": [
+        "U+041C"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EM"
+      ]
+    },
+    {
+      "source": "\u039d",
+      "source_codepoint": "U+039D",
+      "source_name": "GREEK CAPITAL LETTER NU",
+      "legacy_byte": "0xCD",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u041d",
+      "target_codepoints": [
+        "U+041D"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EN"
+      ]
+    },
+    {
+      "source": "\u039e",
+      "source_codepoint": "U+039E",
+      "source_name": "GREEK CAPITAL LETTER XI",
+      "legacy_byte": "0xCE",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u047b",
+      "target_codepoints": [
+        "U+047B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ROUND OMEGA"
+      ]
+    },
+    {
+      "source": "\u039f",
+      "source_codepoint": "U+039F",
+      "source_name": "GREEK CAPITAL LETTER OMICRON",
+      "legacy_byte": "0xCF",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u041f",
+      "target_codepoints": [
+        "U+041F"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER PE"
+      ]
+    },
+    {
+      "source": "\u03a0",
+      "source_codepoint": "U+03A0",
+      "source_name": "GREEK CAPITAL LETTER PI",
+      "legacy_byte": "0xD0",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0420",
+      "target_codepoints": [
+        "U+0420"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ER"
+      ]
+    },
+    {
+      "source": "\u03a1",
+      "source_codepoint": "U+03A1",
+      "source_name": "GREEK CAPITAL LETTER RHO",
+      "legacy_byte": "0xD1",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0421",
+      "target_codepoints": [
+        "U+0421"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ES"
+      ]
+    },
+    {
+      "source": "\u03a3",
+      "source_codepoint": "U+03A3",
+      "source_name": "GREEK CAPITAL LETTER SIGMA",
+      "legacy_byte": "0xD3",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0443",
+      "target_codepoints": [
+        "U+0443"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER U"
+      ]
+    },
+    {
+      "source": "\u03a4",
+      "source_codepoint": "U+03A4",
+      "source_name": "GREEK CAPITAL LETTER TAU",
+      "legacy_byte": "0xD4",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0473",
+      "target_codepoints": [
+        "U+0473"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER FITA"
+      ]
+    },
+    {
+      "source": "\u03a5",
+      "source_codepoint": "U+03A5",
+      "source_name": "GREEK CAPITAL LETTER UPSILON",
+      "legacy_byte": "0xD5",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0425",
+      "target_codepoints": [
+        "U+0425"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER HA"
+      ]
+    },
+    {
+      "source": "\u03a6",
+      "source_codepoint": "U+03A6",
+      "source_name": "GREEK CAPITAL LETTER PHI",
+      "legacy_byte": "0xD6",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0426",
+      "target_codepoints": [
+        "U+0426"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER TSE"
+      ]
+    },
+    {
+      "source": "\u03a7",
+      "source_codepoint": "U+03A7",
+      "source_name": "GREEK CAPITAL LETTER CHI",
+      "legacy_byte": "0xD7",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0427",
+      "target_codepoints": [
+        "U+0427"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER CHE"
+      ]
+    },
+    {
+      "source": "\u03a8",
+      "source_codepoint": "U+03A8",
+      "source_name": "GREEK CAPITAL LETTER PSI",
+      "legacy_byte": "0xD8",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0428",
+      "target_codepoints": [
+        "U+0428"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SHA"
+      ]
+    },
+    {
+      "source": "\u03a9",
+      "source_codepoint": "U+03A9",
+      "source_name": "GREEK CAPITAL LETTER OMEGA",
+      "legacy_byte": "0xD9",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0429",
+      "target_codepoints": [
+        "U+0429"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SHCHA"
+      ]
+    },
+    {
+      "source": "\u03aa",
+      "source_codepoint": "U+03AA",
+      "source_name": "GREEK CAPITAL LETTER IOTA WITH DIALYTIKA",
+      "legacy_byte": "0xDA",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u042a",
+      "target_codepoints": [
+        "U+042A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER HARD SIGN"
+      ]
+    },
+    {
+      "source": "\u03ab",
+      "source_codepoint": "U+03AB",
+      "source_name": "GREEK CAPITAL LETTER UPSILON WITH DIALYTIKA",
+      "legacy_byte": "0xDB",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\ua651",
+      "target_codepoints": [
+        "U+A651"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u03ac",
+      "source_codepoint": "U+03AC",
+      "source_name": "GREEK SMALL LETTER ALPHA WITH TONOS",
+      "legacy_byte": "0xDC",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u042c",
+      "target_codepoints": [
+        "U+042C"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SOFT SIGN"
+      ]
+    },
+    {
+      "source": "\u03ad",
+      "source_codepoint": "U+03AD",
+      "source_name": "GREEK SMALL LETTER EPSILON WITH TONOS",
+      "legacy_byte": "0xDD",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0462",
+      "target_codepoints": [
+        "U+0462"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YAT"
+      ]
+    },
+    {
+      "source": "\u03ae",
+      "source_codepoint": "U+03AE",
+      "source_name": "GREEK SMALL LETTER ETA WITH TONOS",
+      "legacy_byte": "0xDE",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u046b",
+      "target_codepoints": [
+        "U+046B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BIG YUS"
+      ]
+    },
+    {
+      "source": "\u03af",
+      "source_codepoint": "U+03AF",
+      "source_name": "GREEK SMALL LETTER IOTA WITH TONOS",
+      "legacy_byte": "0xDF",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0467",
+      "target_codepoints": [
+        "U+0467"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u03b0",
+      "source_codepoint": "U+03B0",
+      "source_name": "GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND TONOS",
+      "legacy_byte": "0xE0",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0430",
+      "target_codepoints": [
+        "U+0430"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER A"
+      ]
+    },
+    {
+      "source": "\u03b1",
+      "source_codepoint": "U+03B1",
+      "source_name": "GREEK SMALL LETTER ALPHA",
+      "legacy_byte": "0xE1",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0431",
+      "target_codepoints": [
+        "U+0431"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BE"
+      ]
+    },
+    {
+      "source": "\u03b7",
+      "source_codepoint": "U+03B7",
+      "source_name": "GREEK SMALL LETTER ETA",
+      "legacy_byte": "0xE7",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\ua641",
+      "target_codepoints": [
+        "U+A641"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ZEMLYA"
+      ]
+    },
+    {
+      "source": "\u03b9",
+      "source_codepoint": "U+03B9",
+      "source_name": "GREEK SMALL LETTER IOTA",
+      "legacy_byte": "0xE9",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0461",
+      "target_codepoints": [
+        "U+0461"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER OMEGA"
+      ]
+    },
+    {
+      "source": "\u03c3",
+      "source_codepoint": "U+03C3",
+      "source_name": "GREEK SMALL LETTER SIGMA",
+      "legacy_byte": "0xF3",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\ua64b",
+      "target_codepoints": [
+        "U+A64B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER MONOGRAPH UK"
+      ]
+    },
+    {
+      "source": "\u03cd",
+      "source_codepoint": "U+03CD",
+      "source_name": "GREEK SMALL LETTER UPSILON WITH TONOS",
+      "legacy_byte": "0xFD",
+      "seen_as_decoding": [
+        "cp1253"
+      ],
+      "target": "\u0463",
+      "target_codepoints": [
+        "U+0463"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YAT"
+      ]
+    },
+    {
+      "source": "\u0401",
+      "source_codepoint": "U+0401",
+      "source_name": "CYRILLIC CAPITAL LETTER IO",
+      "legacy_byte": "0xA8",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0308",
+      "target_codepoints": [
+        "U+0308"
+      ],
+      "target_names": [
+        "COMBINING DIAERESIS"
+      ]
+    },
+    {
+      "source": "\u0402",
+      "source_codepoint": "U+0402",
+      "source_name": "CYRILLIC CAPITAL LETTER DJE",
+      "legacy_byte": "0x80",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0305",
+      "target_codepoints": [
+        "U+0305"
+      ],
+      "target_names": [
+        "COMBINING OVERLINE"
+      ]
+    },
+    {
+      "source": "\u0403",
+      "source_codepoint": "U+0403",
+      "source_name": "CYRILLIC CAPITAL LETTER GJE",
+      "legacy_byte": "0x81",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0483",
+      "target_codepoints": [
+        "U+0483"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC TITLO"
+      ]
+    },
+    {
+      "source": "\u0404",
+      "source_codepoint": "U+0404",
+      "source_name": "CYRILLIC CAPITAL LETTER UKRAINIAN IE",
+      "legacy_byte": "0xAA",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0469",
+      "target_codepoints": [
+        "U+0469"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IOTIFIED LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u0405",
+      "source_codepoint": "U+0405",
+      "source_name": "CYRILLIC CAPITAL LETTER DZE",
+      "legacy_byte": "0xBD",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0435",
+      "target_codepoints": [
+        "U+0435"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IE"
+      ]
+    },
+    {
+      "source": "\u0406",
+      "source_codepoint": "U+0406",
+      "source_name": "CYRILLIC CAPITAL LETTER BYELORUSSIAN-UKRAINIAN I",
+      "legacy_byte": "0xB2",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0406\u0308",
+      "target_codepoints": [
+        "U+0406",
+        "U+0308"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER BYELORUSSIAN-UKRAINIAN I",
+        "COMBINING DIAERESIS"
+      ]
+    },
+    {
+      "source": "\u0407",
+      "source_codepoint": "U+0407",
+      "source_name": "CYRILLIC CAPITAL LETTER YI",
+      "legacy_byte": "0xAF",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua659",
+      "target_codepoints": [
+        "U+A659"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER CLOSED LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u0408",
+      "source_codepoint": "U+0408",
+      "source_name": "CYRILLIC CAPITAL LETTER JE",
+      "legacy_byte": "0xA3",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u2dee",
+      "target_codepoints": [
+        "U+2DEE"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC LETTER TE"
+      ]
+    },
+    {
+      "source": "\u0409",
+      "source_codepoint": "U+0409",
+      "source_name": "CYRILLIC CAPITAL LETTER LJE",
+      "legacy_byte": "0x8A",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0487",
+      "target_codepoints": [
+        "U+0487"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC POKRYTIE"
+      ]
+    },
+    {
+      "source": "\u040a",
+      "source_codepoint": "U+040A",
+      "source_name": "CYRILLIC CAPITAL LETTER NJE",
+      "legacy_byte": "0x8C",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua650",
+      "target_codepoints": [
+        "U+A650"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u040b",
+      "source_codepoint": "U+040B",
+      "source_name": "CYRILLIC CAPITAL LETTER TSHE",
+      "legacy_byte": "0x8E",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0470",
+      "target_codepoints": [
+        "U+0470"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER PSI"
+      ]
+    },
+    {
+      "source": "\u040c",
+      "source_codepoint": "U+040C",
+      "source_name": "CYRILLIC CAPITAL LETTER KJE",
+      "legacy_byte": "0x8D",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0483",
+      "target_codepoints": [
+        "U+0483"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC TITLO"
+      ]
+    },
+    {
+      "source": "\u040e",
+      "source_codepoint": "U+040E",
+      "source_name": "CYRILLIC CAPITAL LETTER SHORT U",
+      "legacy_byte": "0xA1",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0311",
+      "target_codepoints": [
+        "U+0311"
+      ],
+      "target_names": [
+        "COMBINING INVERTED BREVE"
+      ]
+    },
+    {
+      "source": "\u040f",
+      "source_codepoint": "U+040F",
+      "source_name": "CYRILLIC CAPITAL LETTER DZHE",
+      "legacy_byte": "0x8F",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u2e43",
+      "target_codepoints": [
+        "U+2E43"
+      ],
+      "target_names": [
+        "DASH WITH LEFT UPTURN"
+      ]
+    },
+    {
+      "source": "\u0410",
+      "source_codepoint": "U+0410",
+      "source_name": "CYRILLIC CAPITAL LETTER A",
+      "legacy_byte": "0xC0",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0410",
+      "target_codepoints": [
+        "U+0410"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER A"
+      ]
+    },
+    {
+      "source": "\u0411",
+      "source_codepoint": "U+0411",
+      "source_name": "CYRILLIC CAPITAL LETTER BE",
+      "legacy_byte": "0xC1",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0411",
+      "target_codepoints": [
+        "U+0411"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER BE"
+      ]
+    },
+    {
+      "source": "\u0412",
+      "source_codepoint": "U+0412",
+      "source_name": "CYRILLIC CAPITAL LETTER VE",
+      "legacy_byte": "0xC2",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0412",
+      "target_codepoints": [
+        "U+0412"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER VE"
+      ]
+    },
+    {
+      "source": "\u0413",
+      "source_codepoint": "U+0413",
+      "source_name": "CYRILLIC CAPITAL LETTER GHE",
+      "legacy_byte": "0xC3",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0413",
+      "target_codepoints": [
+        "U+0413"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER GHE"
+      ]
+    },
+    {
+      "source": "\u0414",
+      "source_codepoint": "U+0414",
+      "source_name": "CYRILLIC CAPITAL LETTER DE",
+      "legacy_byte": "0xC4",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0414",
+      "target_codepoints": [
+        "U+0414"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER DE"
+      ]
+    },
+    {
+      "source": "\u0415",
+      "source_codepoint": "U+0415",
+      "source_name": "CYRILLIC CAPITAL LETTER IE",
+      "legacy_byte": "0xC5",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0454",
+      "target_codepoints": [
+        "U+0454"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER UKRAINIAN IE"
+      ]
+    },
+    {
+      "source": "\u0416",
+      "source_codepoint": "U+0416",
+      "source_name": "CYRILLIC CAPITAL LETTER ZHE",
+      "legacy_byte": "0xC6",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0416",
+      "target_codepoints": [
+        "U+0416"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ZHE"
+      ]
+    },
+    {
+      "source": "\u0417",
+      "source_codepoint": "U+0417",
+      "source_name": "CYRILLIC CAPITAL LETTER ZE",
+      "legacy_byte": "0xC7",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0437",
+      "target_codepoints": [
+        "U+0437"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ZE"
+      ]
+    },
+    {
+      "source": "\u0418",
+      "source_codepoint": "U+0418",
+      "source_name": "CYRILLIC CAPITAL LETTER I",
+      "legacy_byte": "0xC8",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0456\u0308",
+      "target_codepoints": [
+        "U+0456",
+        "U+0308"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I",
+        "COMBINING DIAERESIS"
+      ]
+    },
+    {
+      "source": "\u0419",
+      "source_codepoint": "U+0419",
+      "source_name": "CYRILLIC CAPITAL LETTER SHORT I",
+      "legacy_byte": "0xC9",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0460",
+      "target_codepoints": [
+        "U+0460"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER OMEGA"
+      ]
+    },
+    {
+      "source": "\u041a",
+      "source_codepoint": "U+041A",
+      "source_name": "CYRILLIC CAPITAL LETTER KA",
+      "legacy_byte": "0xCA",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u041a",
+      "target_codepoints": [
+        "U+041A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER KA"
+      ]
+    },
+    {
+      "source": "\u041b",
+      "source_codepoint": "U+041B",
+      "source_name": "CYRILLIC CAPITAL LETTER EL",
+      "legacy_byte": "0xCB",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u041b",
+      "target_codepoints": [
+        "U+041B"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EL"
+      ]
+    },
+    {
+      "source": "\u041c",
+      "source_codepoint": "U+041C",
+      "source_name": "CYRILLIC CAPITAL LETTER EM",
+      "legacy_byte": "0xCC",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u041c",
+      "target_codepoints": [
+        "U+041C"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EM"
+      ]
+    },
+    {
+      "source": "\u041d",
+      "source_codepoint": "U+041D",
+      "source_name": "CYRILLIC CAPITAL LETTER EN",
+      "legacy_byte": "0xCD",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u041d",
+      "target_codepoints": [
+        "U+041D"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER EN"
+      ]
+    },
+    {
+      "source": "\u041e",
+      "source_codepoint": "U+041E",
+      "source_name": "CYRILLIC CAPITAL LETTER O",
+      "legacy_byte": "0xCE",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u047b",
+      "target_codepoints": [
+        "U+047B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ROUND OMEGA"
+      ]
+    },
+    {
+      "source": "\u041f",
+      "source_codepoint": "U+041F",
+      "source_name": "CYRILLIC CAPITAL LETTER PE",
+      "legacy_byte": "0xCF",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u041f",
+      "target_codepoints": [
+        "U+041F"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER PE"
+      ]
+    },
+    {
+      "source": "\u0420",
+      "source_codepoint": "U+0420",
+      "source_name": "CYRILLIC CAPITAL LETTER ER",
+      "legacy_byte": "0xD0",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0420",
+      "target_codepoints": [
+        "U+0420"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ER"
+      ]
+    },
+    {
+      "source": "\u0421",
+      "source_codepoint": "U+0421",
+      "source_name": "CYRILLIC CAPITAL LETTER ES",
+      "legacy_byte": "0xD1",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0421",
+      "target_codepoints": [
+        "U+0421"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ES"
+      ]
+    },
+    {
+      "source": "\u0422",
+      "source_codepoint": "U+0422",
+      "source_name": "CYRILLIC CAPITAL LETTER TE",
+      "legacy_byte": "0xD2",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0422",
+      "target_codepoints": [
+        "U+0422"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER TE"
+      ]
+    },
+    {
+      "source": "\u0423",
+      "source_codepoint": "U+0423",
+      "source_name": "CYRILLIC CAPITAL LETTER U",
+      "legacy_byte": "0xD3",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0443",
+      "target_codepoints": [
+        "U+0443"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER U"
+      ]
+    },
+    {
+      "source": "\u0424",
+      "source_codepoint": "U+0424",
+      "source_name": "CYRILLIC CAPITAL LETTER EF",
+      "legacy_byte": "0xD4",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0473",
+      "target_codepoints": [
+        "U+0473"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER FITA"
+      ]
+    },
+    {
+      "source": "\u0425",
+      "source_codepoint": "U+0425",
+      "source_name": "CYRILLIC CAPITAL LETTER HA",
+      "legacy_byte": "0xD5",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0425",
+      "target_codepoints": [
+        "U+0425"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER HA"
+      ]
+    },
+    {
+      "source": "\u0426",
+      "source_codepoint": "U+0426",
+      "source_name": "CYRILLIC CAPITAL LETTER TSE",
+      "legacy_byte": "0xD6",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0426",
+      "target_codepoints": [
+        "U+0426"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER TSE"
+      ]
+    },
+    {
+      "source": "\u0427",
+      "source_codepoint": "U+0427",
+      "source_name": "CYRILLIC CAPITAL LETTER CHE",
+      "legacy_byte": "0xD7",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0427",
+      "target_codepoints": [
+        "U+0427"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER CHE"
+      ]
+    },
+    {
+      "source": "\u0428",
+      "source_codepoint": "U+0428",
+      "source_name": "CYRILLIC CAPITAL LETTER SHA",
+      "legacy_byte": "0xD8",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0428",
+      "target_codepoints": [
+        "U+0428"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SHA"
+      ]
+    },
+    {
+      "source": "\u0429",
+      "source_codepoint": "U+0429",
+      "source_name": "CYRILLIC CAPITAL LETTER SHCHA",
+      "legacy_byte": "0xD9",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0429",
+      "target_codepoints": [
+        "U+0429"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SHCHA"
+      ]
+    },
+    {
+      "source": "\u042a",
+      "source_codepoint": "U+042A",
+      "source_name": "CYRILLIC CAPITAL LETTER HARD SIGN",
+      "legacy_byte": "0xDA",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u042a",
+      "target_codepoints": [
+        "U+042A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER HARD SIGN"
+      ]
+    },
+    {
+      "source": "\u042b",
+      "source_codepoint": "U+042B",
+      "source_name": "CYRILLIC CAPITAL LETTER YERU",
+      "legacy_byte": "0xDB",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua651",
+      "target_codepoints": [
+        "U+A651"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u042c",
+      "source_codepoint": "U+042C",
+      "source_name": "CYRILLIC CAPITAL LETTER SOFT SIGN",
+      "legacy_byte": "0xDC",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u042c",
+      "target_codepoints": [
+        "U+042C"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER SOFT SIGN"
+      ]
+    },
+    {
+      "source": "\u042d",
+      "source_codepoint": "U+042D",
+      "source_name": "CYRILLIC CAPITAL LETTER E",
+      "legacy_byte": "0xDD",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0462",
+      "target_codepoints": [
+        "U+0462"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YAT"
+      ]
+    },
+    {
+      "source": "\u042e",
+      "source_codepoint": "U+042E",
+      "source_name": "CYRILLIC CAPITAL LETTER YU",
+      "legacy_byte": "0xDE",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u046b",
+      "target_codepoints": [
+        "U+046B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BIG YUS"
+      ]
+    },
+    {
+      "source": "\u042f",
+      "source_codepoint": "U+042F",
+      "source_name": "CYRILLIC CAPITAL LETTER YA",
+      "legacy_byte": "0xDF",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0467",
+      "target_codepoints": [
+        "U+0467"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u0430",
+      "source_codepoint": "U+0430",
+      "source_name": "CYRILLIC SMALL LETTER A",
+      "legacy_byte": "0xE0",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0430",
+      "target_codepoints": [
+        "U+0430"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER A"
+      ]
+    },
+    {
+      "source": "\u0431",
+      "source_codepoint": "U+0431",
+      "source_name": "CYRILLIC SMALL LETTER BE",
+      "legacy_byte": "0xE1",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0431",
+      "target_codepoints": [
+        "U+0431"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BE"
+      ]
+    },
+    {
+      "source": "\u0437",
+      "source_codepoint": "U+0437",
+      "source_name": "CYRILLIC SMALL LETTER ZE",
+      "legacy_byte": "0xE7",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua641",
+      "target_codepoints": [
+        "U+A641"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER ZEMLYA"
+      ]
+    },
+    {
+      "source": "\u0439",
+      "source_codepoint": "U+0439",
+      "source_name": "CYRILLIC SMALL LETTER SHORT I",
+      "legacy_byte": "0xE9",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0461",
+      "target_codepoints": [
+        "U+0461"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER OMEGA"
+      ]
+    },
+    {
+      "source": "\u0443",
+      "source_codepoint": "U+0443",
+      "source_name": "CYRILLIC SMALL LETTER U",
+      "legacy_byte": "0xF3",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua64b",
+      "target_codepoints": [
+        "U+A64B"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER MONOGRAPH UK"
+      ]
+    },
+    {
+      "source": "\u044d",
+      "source_codepoint": "U+044D",
+      "source_name": "CYRILLIC SMALL LETTER E",
+      "legacy_byte": "0xFD",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0463",
+      "target_codepoints": [
+        "U+0463"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YAT"
+      ]
+    },
+    {
+      "source": "\u044f",
+      "source_codepoint": "U+044F",
+      "source_name": "CYRILLIC SMALL LETTER YA",
+      "legacy_byte": "0xFF",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua657",
+      "target_codepoints": [
+        "U+A657"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IOTIFIED A"
+      ]
+    },
+    {
+      "source": "\u0451",
+      "source_codepoint": "U+0451",
+      "source_name": "CYRILLIC SMALL LETTER IO",
+      "legacy_byte": "0xB8",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0438",
+      "target_codepoints": [
+        "U+0438"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER I"
+      ]
+    },
+    {
+      "source": "\u0452",
+      "source_codepoint": "U+0452",
+      "source_name": "CYRILLIC SMALL LETTER DJE",
+      "legacy_byte": "0x90",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0487",
+      "target_codepoints": [
+        "U+0487"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC POKRYTIE"
+      ]
+    },
+    {
+      "source": "\u0453",
+      "source_codepoint": "U+0453",
+      "source_name": "CYRILLIC SMALL LETTER GJE",
+      "legacy_byte": "0x83",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua66f",
+      "target_codepoints": [
+        "U+A66F"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC VZMET"
+      ]
+    },
+    {
+      "source": "\u0454",
+      "source_codepoint": "U+0454",
+      "source_name": "CYRILLIC SMALL LETTER UKRAINIAN IE",
+      "legacy_byte": "0xBA",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0435\u0486",
+      "target_codepoints": [
+        "U+0435",
+        "U+0486"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER IE",
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "\u0455",
+      "source_codepoint": "U+0455",
+      "source_name": "CYRILLIC SMALL LETTER DZE",
+      "legacy_byte": "0xBE",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0471",
+      "target_codepoints": [
+        "U+0471"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER PSI"
+      ]
+    },
+    {
+      "source": "\u0456",
+      "source_codepoint": "U+0456",
+      "source_name": "CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I",
+      "legacy_byte": "0xB3",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua643",
+      "target_codepoints": [
+        "U+A643"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER DZELO"
+      ]
+    },
+    {
+      "source": "\u0457",
+      "source_codepoint": "U+0457",
+      "source_name": "CYRILLIC SMALL LETTER YI",
+      "legacy_byte": "0xBF",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u046f",
+      "target_codepoints": [
+        "U+046F"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER KSI"
+      ]
+    },
+    {
+      "source": "\u0458",
+      "source_codepoint": "U+0458",
+      "source_name": "CYRILLIC SMALL LETTER JE",
+      "legacy_byte": "0xBC",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua650",
+      "target_codepoints": [
+        "U+A650"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u0459",
+      "source_codepoint": "U+0459",
+      "source_name": "CYRILLIC SMALL LETTER LJE",
+      "legacy_byte": "0x9A",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0468",
+      "target_codepoints": [
+        "U+0468"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER IOTIFIED LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u045a",
+      "source_codepoint": "U+045A",
+      "source_name": "CYRILLIC SMALL LETTER NJE",
+      "legacy_byte": "0x9C",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0486",
+      "target_codepoints": [
+        "U+0486"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA"
+      ]
+    },
+    {
+      "source": "\u045b",
+      "source_codepoint": "U+045B",
+      "source_name": "CYRILLIC SMALL LETTER TSHE",
+      "legacy_byte": "0x9E",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0430\u200d\u0443",
+      "target_codepoints": [
+        "U+0430",
+        "U+200D",
+        "U+0443"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER A",
+        "ZERO WIDTH JOINER",
+        "CYRILLIC SMALL LETTER U"
+      ]
+    },
+    {
+      "source": "\u045c",
+      "source_codepoint": "U+045C",
+      "source_name": "CYRILLIC SMALL LETTER KJE",
+      "legacy_byte": "0x9D",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0466",
+      "target_codepoints": [
+        "U+0466"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER LITTLE YUS"
+      ]
+    },
+    {
+      "source": "\u045e",
+      "source_codepoint": "U+045E",
+      "source_name": "CYRILLIC SMALL LETTER SHORT U",
+      "legacy_byte": "0xA2",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u02b9",
+      "target_codepoints": [
+        "U+02B9"
+      ],
+      "target_names": [
+        "MODIFIER LETTER PRIME"
+      ]
+    },
+    {
+      "source": "\u045f",
+      "source_codepoint": "U+045F",
+      "source_name": "CYRILLIC SMALL LETTER DZHE",
+      "legacy_byte": "0x9F",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua64d",
+      "target_codepoints": [
+        "U+A64D"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER BROAD OMEGA"
+      ]
+    },
+    {
+      "source": "\u0490",
+      "source_codepoint": "U+0490",
+      "source_name": "CYRILLIC CAPITAL LETTER GHE WITH UPTURN",
+      "legacy_byte": "0xA5",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\ua651",
+      "target_codepoints": [
+        "U+A651"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER YERU WITH BACK YER"
+      ]
+    },
+    {
+      "source": "\u0491",
+      "source_codepoint": "U+0491",
+      "source_name": "CYRILLIC SMALL LETTER GHE WITH UPTURN",
+      "legacy_byte": "0xB4",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u0417",
+      "target_codepoints": [
+        "U+0417"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER ZE"
+      ]
+    },
+    {
+      "source": "\u2013",
+      "source_codepoint": "U+2013",
+      "source_name": "EN DASH",
+      "legacy_byte": "0x96",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u2013",
+      "target_codepoints": [
+        "U+2013"
+      ],
+      "target_names": [
+        "EN DASH"
+      ]
+    },
+    {
+      "source": "\u2014",
+      "source_codepoint": "U+2014",
+      "source_name": "EM DASH",
+      "legacy_byte": "0x97",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u047e",
+      "target_codepoints": [
+        "U+047E"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER OT"
+      ]
+    },
+    {
+      "source": "\u2018",
+      "source_codepoint": "U+2018",
+      "source_name": "LEFT SINGLE QUOTATION MARK",
+      "legacy_byte": "0x91",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u0301",
+      "target_codepoints": [
+        "U+0301"
+      ],
+      "target_names": [
+        "COMBINING ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "\u2019",
+      "source_codepoint": "U+2019",
+      "source_name": "RIGHT SINGLE QUOTATION MARK",
+      "legacy_byte": "0x92",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u0300",
+      "target_codepoints": [
+        "U+0300"
+      ],
+      "target_names": [
+        "COMBINING GRAVE ACCENT"
+      ]
+    },
+    {
+      "source": "\u201a",
+      "source_codepoint": "U+201A",
+      "source_name": "SINGLE LOW-9 QUOTATION MARK",
+      "legacy_byte": "0x82",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u0303",
+      "target_codepoints": [
+        "U+0303"
+      ],
+      "target_names": [
+        "COMBINING TILDE"
+      ]
+    },
+    {
+      "source": "\u201c",
+      "source_codepoint": "U+201C",
+      "source_name": "LEFT DOUBLE QUOTATION MARK",
+      "legacy_byte": "0x93",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u030b",
+      "target_codepoints": [
+        "U+030B"
+      ],
+      "target_names": [
+        "COMBINING DOUBLE ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "\u201d",
+      "source_codepoint": "U+201D",
+      "source_name": "RIGHT DOUBLE QUOTATION MARK",
+      "legacy_byte": "0x94",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u030f",
+      "target_codepoints": [
+        "U+030F"
+      ],
+      "target_names": [
+        "COMBINING DOUBLE GRAVE ACCENT"
+      ]
+    },
+    {
+      "source": "\u201e",
+      "source_codepoint": "U+201E",
+      "source_name": "DOUBLE LOW-9 QUOTATION MARK",
+      "legacy_byte": "0x84",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u0357",
+      "target_codepoints": [
+        "U+0357"
+      ],
+      "target_names": [
+        "COMBINING RIGHT HALF RING ABOVE"
+      ]
+    },
+    {
+      "source": "\u2020",
+      "source_codepoint": "U+2020",
+      "source_name": "DAGGER",
+      "legacy_byte": "0x86",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u0311",
+      "target_codepoints": [
+        "U+0311"
+      ],
+      "target_names": [
+        "COMBINING INVERTED BREVE"
+      ]
+    },
+    {
+      "source": "\u2021",
+      "source_codepoint": "U+2021",
+      "source_name": "DOUBLE DAGGER",
+      "legacy_byte": "0x87",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u0306",
+      "target_codepoints": [
+        "U+0306"
+      ],
+      "target_names": [
+        "COMBINING BREVE"
+      ]
+    },
+    {
+      "source": "\u2022",
+      "source_codepoint": "U+2022",
+      "source_name": "BULLET",
+      "legacy_byte": "0x95",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u2022",
+      "target_codepoints": [
+        "U+2022"
+      ],
+      "target_names": [
+        "BULLET"
+      ]
+    },
+    {
+      "source": "\u2026",
+      "source_codepoint": "U+2026",
+      "source_name": "HORIZONTAL ELLIPSIS",
+      "legacy_byte": "0x85",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u0351",
+      "target_codepoints": [
+        "U+0351"
+      ],
+      "target_names": [
+        "COMBINING LEFT HALF RING ABOVE"
+      ]
+    },
+    {
+      "source": "\u2030",
+      "source_codepoint": "U+2030",
+      "source_name": "PER MILLE SIGN",
+      "legacy_byte": "0x89",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u0485\u0301",
+      "target_codepoints": [
+        "U+0485",
+        "U+0301"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC DASIA PNEUMATA",
+        "COMBINING ACUTE ACCENT"
+      ]
+    },
+    {
+      "source": "\u2039",
+      "source_codepoint": "U+2039",
+      "source_name": "SINGLE LEFT-POINTING ANGLE QUOTATION MARK",
+      "legacy_byte": "0x8B",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u0472",
+      "target_codepoints": [
+        "U+0472"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER FITA"
+      ]
+    },
+    {
+      "source": "\u203a",
+      "source_codepoint": "U+203A",
+      "source_name": "SINGLE RIGHT-POINTING ANGLE QUOTATION MARK",
+      "legacy_byte": "0x9B",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u0486\u0300",
+      "target_codepoints": [
+        "U+0486",
+        "U+0300"
+      ],
+      "target_names": [
+        "COMBINING CYRILLIC PSILI PNEUMATA",
+        "COMBINING GRAVE ACCENT"
+      ]
+    },
+    {
+      "source": "\u2116",
+      "source_codepoint": "U+2116",
+      "source_name": "NUMERO SIGN",
+      "legacy_byte": "0xB9",
+      "seen_as_decoding": [
+        "cp1251"
+      ],
+      "target": "\u1c82\u0443",
+      "target_codepoints": [
+        "U+1C82",
+        "U+0443"
+      ],
+      "target_names": [
+        "CYRILLIC SMALL LETTER NARROW O",
+        "CYRILLIC SMALL LETTER U"
+      ]
+    },
+    {
+      "source": "\u2122",
+      "source_codepoint": "U+2122",
+      "source_name": "TRADE MARK SIGN",
+      "legacy_byte": "0x99",
+      "seen_as_decoding": [
+        "cp1250",
+        "cp1251",
+        "cp1252",
+        "cp1253"
+      ],
+      "target": "\u046a",
+      "target_codepoints": [
+        "U+046A"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER BIG YUS"
+      ]
+    },
+    {
+      "source": "\u2219",
+      "source_codepoint": "U+2219",
+      "source_name": "BULLET OPERATOR",
+      "legacy_byte": null,
+      "seen_as_decoding": null,
+      "target": "\u0418",
+      "target_codepoints": [
+        "U+0418"
+      ],
+      "target_names": [
+        "CYRILLIC CAPITAL LETTER I"
+      ]
+    }
+  ]
+}
