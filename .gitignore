@@ -2,6 +2,12 @@
 # versioned here. `original/` is the converted, versioned output.
 /SOF/
 
+# Generated website (scripts/md2html.py); the default output of
+# `md2html.py original` plus the names a build is likely to be sent to.
+/original-html/
+/site/
+/sof-catalog/
+
 # Python
 __pycache__/
 *.py[cod]

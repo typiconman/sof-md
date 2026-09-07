@@ -1,3 +1,4 @@
-# scripts/odt2md.py uses only the Python standard library — no third-party
-# packages are required to run it. This file is kept as the conventional
-# place to add one if the tooling ever grows a dependency.
+# The scripts in scripts/ (odt2md.py, md2html.py) use only the Python
+# standard library — no third-party packages are required to run them.
+# This file is kept as the conventional place to add one if the tooling
+# ever grows a dependency.
