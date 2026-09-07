@@ -62,11 +62,15 @@ FOOTER_TEXT = "Последнее обновление данного докум
 # the transcriptions, whose titles are whole lines of Church Slavonic.
 NAV_SKIP = re.compile(r"(?:^|/)(?:index\.html|[^/]*_t\d+\.html)$")
 
-# The Church Slavonic webfont.  These are the URLs that the stylesheet at
-# https://slavonic.github.io/css/fonts.css resolves to; only the one face the
-# catalogue actually uses is declared here.
+# The Church Slavonic webfont, declared as in the stylesheet at
+# https://slavonic.github.io/css/fonts.css but for the one face the catalogue
+# uses, and pointing straight at sci.ponomar.net.  The slavonic.github.io
+# paths only redirect there, and the 301 carries no Access-Control-Allow-Origin
+# header: a font is fetched in CORS mode, the check applies to every hop of the
+# redirect, so a browser blocks it before reaching the file that does send the
+# header.  The direct URL has no such hop.
 CU_FONT_FAMILY = "Shafarik"
-CU_FONT_BASE = "https://slavonic.github.io/fonts/Shafarik-Regular"
+CU_FONT_BASE = "https://sci.ponomar.net/fonts/Shafarik-Regular"
 
 
 # --------------------------------------------------------------------------
@@ -364,7 +368,7 @@ a:visited { text-decoration: underline; color: darkred; }
 a:hover { text-decoration: underline; color: #8B2252; }
 a:active { text-decoration: underline; color: darkred; }
 /* Church Slavonic decoded from the legacy CyrillicaBgEpigraphMod font. */
-.cu-text { font-family: '%(cu_family)s', "Ponomar Unicode", serif;
+.cu-text { font-family: '%(cu_family)s', serif;
            font-size: 112%%; }
 .nav { width: 100%%; text-align: right; }
 form { position: relative; top: -10px; left: 10px; margin: 0; border: none; }
