@@ -43,3 +43,13 @@ from the obsolete CyrillicaBgEpigraphMod font — into the
 [Shafarik](https://sci.ponomar.net/) webfont, where the old pipeline could
 only render it to a JPEG. The output tree is a build artifact and is not
 tracked.
+
+## License and authorship
+
+The `LICENSE` file (MIT) covers the code in `scripts/` only. The manuscript
+descriptions in `original/` are copyrighted by their authors and are not
+covered by that license.
+
+The cataloguing project was supported by grant N 06-01-12102v of the
+Russian Foundation for the Humanities. Project team: T.I. Afanasyeva,
+E.V. Krushelnitskaya, O.V. Motygin, A.S. Slutsky (director).
