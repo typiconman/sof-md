@@ -151,7 +151,7 @@ INLINE = re.compile(
     re.X,
 )
 
-ALLOWED_TAGS = {"span", "em", "strong", "br", "a", "sup", "sub", "i", "b"}
+ALLOWED_TAGS = {"span", "em", "strong", "br", "a", "sup", "sub", "i", "b", "u"}
 
 
 class Renderer:
@@ -363,6 +363,8 @@ ul { margin-top: 12px; margin-bottom: 0; padding-left: 24px; }
 li { margin-top: 4px; }
 img { border: 0; max-width: 100%%; height: auto; }
 img.imgs { padding: 2px; border: 3px groove NavajoWhite; clear: left; }
+/* Underline from the source ODT — marks the units of the eventual index. */
+u { text-decoration: underline; }
 a:link { text-decoration: underline; color: navy; }
 a:visited { text-decoration: underline; color: darkred; }
 a:hover { text-decoration: underline; color: #8B2252; }

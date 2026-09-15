@@ -199,7 +199,8 @@ def attr(elem: ET.Element, *names: str) -> str | None:
 
 
 class StyleBook:
-    """Font / bold / italic properties of named and automatic ODF styles."""
+    """Font / bold / italic / underline properties of named and automatic
+    ODF styles."""
 
     def __init__(self) -> None:
         self.fonts: dict[str, str] = {}      # font-face name -> family
@@ -234,6 +235,9 @@ class StyleBook:
             style = attr(child, "font-style")
             if style:
                 props["italic"] = style in ("italic", "oblique")
+            underline = attr(child, "text-underline-style")
+            if underline:
+                props["underline"] = underline != "none"
         self.styles[name] = props
 
     def resolve(self, name: str | None) -> dict:
@@ -245,7 +249,7 @@ class StyleBook:
         self._resolved[name] = {}  # guard against cyclic parents
         props = self.styles[name]
         merged = dict(self.resolve(props.get("parent")))
-        for key in ("font", "bold", "italic"):
+        for key in ("font", "bold", "italic", "underline"):
             if key in props:
                 merged[key] = props[key]
         self._resolved[name] = merged
@@ -261,19 +265,20 @@ class StyleBook:
 class Run:
     """One inline piece of a paragraph, carrying its formatting."""
 
-    __slots__ = ("text", "bold", "italic", "cyr", "href", "kind")
+    __slots__ = ("text", "bold", "italic", "underline", "cyr", "href", "kind")
 
     def __init__(self, text: str, ctx: dict, kind: str = "text",
                  href: str | None = None) -> None:
         self.text = text
         self.bold = bool(ctx.get("bold"))
         self.italic = bool(ctx.get("italic"))
+        self.underline = bool(ctx.get("underline"))
         self.cyr = bool(ctx.get("cyr"))
         self.href = href if href is not None else ctx.get("href")
         self.kind = kind  # text | break | image | anchor
 
     def style_key(self):
-        return (self.bold, self.italic, self.cyr)
+        return (self.bold, self.italic, self.underline, self.cyr)
 
 
 # --------------------------------------------------------------------------
@@ -439,6 +444,8 @@ class Converter:
             new["bold"] = props["bold"]
         if "italic" in props:
             new["italic"] = props["italic"]
+        if "underline" in props:
+            new["underline"] = props["underline"]
         if "font" in props:
             new["cyr"] = self.styles.is_cyrillica(props["font"])
         return new
@@ -545,10 +552,11 @@ class Converter:
         """
         chunks = []
         for key, group in group_by(runs, lambda r: (r.href,) + r.style_key()):
-            href, bold, italic, cyr = key
+            href, bold, italic, underline, cyr = key
             chunks.append({"href": href,
                            "bold": bold and not suppress_bold,
                            "italic": italic,
+                           "underline": underline,
                            "text": self.render_plain(group, masker, cyr)})
 
         for index, chunk in enumerate(chunks):
@@ -556,6 +564,8 @@ class Converter:
             after = chunks[index + 1]["text"] if index + 1 < len(chunks) else ""
             chunk["text"] = emphasize(chunk["text"], chunk["bold"],
                                       chunk["italic"], before, after)
+            if chunk["underline"]:
+                chunk["text"] = wrap_underline(chunk["text"])
 
         out: list[str] = []
         for href, group in group_by(chunks, lambda c: c["href"]):
@@ -690,6 +700,20 @@ def emphasize(text: str, bold: bool, italic: bool, before: str, after: str) -> s
     open_tags = "".join("<%s>" % t for t in tags)
     close_tags = "".join("</%s>" % t for t in reversed(tags))
     return lead + open_tags + core + close_tags + trail
+
+
+def wrap_underline(text: str) -> str:
+    """Wrap one chunk's core in <u>\u2026</u> \u2014 the underline of the source ODT.
+
+    Markdown has no native underline syntax, so this is always a tag, unlike
+    emphasize()'s bold/italic. The underline marks the units Slutsky's index
+    is built from (see the project's editorial notes), so it must round-trip
+    exactly rather than being approximated with bold or italic.
+    """
+    if not text.strip():
+        return text
+    lead, core, trail = split_ws(text)
+    return lead + "<u>" + core + "</u>" + trail
 
 
 _TWO_MASKS = re.compile("\x00([\ue000-\uf8ff])\x00([ \t]*)\x00([\ue000-\uf8ff])\x00")
