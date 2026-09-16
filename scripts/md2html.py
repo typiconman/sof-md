@@ -358,6 +358,9 @@ h1, h2, h3, h4, h5, h6 {
        font-weight: bold; color: #600000; }
 h1 { font-size: 15pt; }
 h2, h3, h4, h5, h6 { font-size: 14pt; }
+.title-row { display: flex; flex-wrap: wrap;
+             align-items: center; justify-content: space-between; gap: 10px; }
+.title-row h1 { margin: 0; }
 p { text-align: %(justify)s; text-indent: 0; margin-top: 12px; margin-bottom: 0; }
 ul { margin-top: 12px; margin-bottom: 0; padding-left: 24px; }
 li { margin-top: 4px; }
@@ -369,6 +372,13 @@ a:link { text-decoration: underline; color: navy; }
 a:visited { text-decoration: underline; color: darkred; }
 a:hover { text-decoration: underline; color: #8B2252; }
 a:active { text-decoration: underline; color: darkred; }
+.photo-link { display: inline-block; flex: none; white-space: nowrap;
+              padding: 4px 12px; font-family: sans-serif; font-size: 9pt;
+              font-weight: normal; background-color: #FAFAD2;
+              border: 1px solid darkkhaki; border-radius: 3px; }
+.photo-link:link, .photo-link:visited { color: #600000; text-decoration: none; }
+.photo-link:hover, .photo-link:active { background-color: NavajoWhite;
+                                         text-decoration: none; }
 /* Church Slavonic decoded from the legacy CyrillicaBgEpigraphMod font. */
 .cu-text { font-family: '%(cu_family)s', serif;
            font-size: 112%%; }
@@ -380,12 +390,32 @@ select { font-family: sans-serif; font-size: 9pt; background-color: #FAFAD2;
 hr { margin-top: 24px; border: 0; border-top: 1px solid darkkhaki; }
 small { color: #555; }
 @media print {
-  #guideform { display: none; }
+  #guideform, .photo-link { display: none; }
   body { font-size: 13pt; color: black; background-color: white;
          margin: 5mm; padding: 0; border: none; }
 }
 """ % {"justify": "justify" if justify else "left",
        "cu_family": CU_FONT_FAMILY, "cu_base": CU_FONT_BASE}
+
+
+PHOTO_LINK_TEXT = "Цифровая копия рукописи"
+FIRST_HEADING = re.compile(r"<h1>.*?</h1>")
+
+
+def add_photo_link(body: str, photo_url: str) -> str:
+    """Put a link to the manuscript's digital facsimile beside the title.
+
+    photo-url is an optional field of a page's front matter (not every
+    manuscript has one online yet); when present it names the page at the
+    library's own site, not a direct image, so it opens in a new tab rather
+    than navigating the reader away from the description.
+    """
+    if not photo_url or not re.match(r"^https?://", photo_url):
+        return body
+    link = ('<a class="photo-link" href="%s" target="_blank" rel="noopener">%s</a>'
+           % (html.escape(photo_url, quote=True), html.escape(PHOTO_LINK_TEXT)))
+    return FIRST_HEADING.sub(lambda m: '<div class="title-row">%s%s</div>'
+                             % (m.group(0), link), body, count=1)
 
 
 def render_page(title: str, nav: str, body: str, updated: str,
@@ -514,6 +544,7 @@ def main(argv: list[str]) -> int:
                       "title": meta.get("title") or heading or os.path.splitext(
                           os.path.basename(rel_path))[0],
                       "updated": meta.get("updated", ""),
+                      "photo_url": (meta.get("photo-url") or "").strip(),
                       "body": body})
 
     ordered = nav_order(pages)
@@ -533,7 +564,8 @@ def main(argv: list[str]) -> int:
         nav = render_nav(ordered, page["out"], args.home_url)
         # convert_i.pl justified the pages of the introduction, and only those.
         justify = "comment" in os.path.basename(page["out"]).lower()
-        document = render_page(page["title"], nav, page["body"],
+        body = add_photo_link(page["body"], page["photo_url"])
+        document = render_page(page["title"], nav, body,
                                page["updated"], justify)
         dest = os.path.join(out_root, page["out"])
         os.makedirs(os.path.dirname(dest) or ".", exist_ok=True)
