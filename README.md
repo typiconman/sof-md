@@ -53,3 +53,5 @@ covered by that license.
 The cataloguing project was supported by grant N 06-01-12102v of the
 Russian Foundation for the Humanities. Project team: T.I. Afanasyeva,
 E.V. Krushelnitskaya, O.V. Motygin, A.S. Slutsky (director).
+
+The catalog is presently maintained by Aleksandr Andreev (pipeline engineer and technical lead).
