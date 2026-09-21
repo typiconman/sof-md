@@ -15,6 +15,8 @@ Novgorod's St Sophia Cathedral (Соф.) at the National Library of Russia, as a
   is the font-decoding table it relies on, based on the obsolete CyrillicaBgEpigraphMod font.
   [md2html.py](scripts/md2html.py) builds the HTML website from `original/`,
   taking over from the legacy `SOF/convert_i.pl`.
+  [add_manuscript.py](scripts/add_manuscript.py) converts one loose ODT into
+  the catalogue, for descriptions not yet filed under `SOF/`.
 - `SOF/` — the legacy `.odt` source tree and the old Perl/HTML conversion
   pipeline it replaces. Kept locally only; not tracked in this repository.
 - `encoding.ods` — a spreadsheet that was used to make scripts/cyrillica_bg_epigraph_mod_to_unicode.json, will be deleted eventually.
@@ -33,6 +35,14 @@ Build the website from the Markdown:
 
 ```sh
 python3 scripts/md2html.py original -o original-html
+```
+
+Add a single manuscript that is not yet in the ODT tree, setting the two
+fields that cannot be read off the document itself:
+
+```sh
+python3 scripts/add_manuscript.py new-odt/652_0.ODT -o original \
+    --century 16 --paleography
 ```
 
 See `--help` for the available options (`--only`, `--no-assets`, `--clean`,
