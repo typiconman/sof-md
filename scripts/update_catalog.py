@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""update_catalog.py — fill the manuscript lists of the catalogue front pages.
+"""update_catalog.py — fill the manuscript lists of the catalog front pages.
 
 sof-catalog.html and sof-catalog-en.html group the manuscripts by century,
-one <H3> section each, and colour a shelfmark by whether its description has
-a palaeographic part.  Both facts now live in the front matter of every main
+one <H3> section each, and color a shelfmark by whether its description has
+a paleographic part.  Both facts now live in the front matter of every main
 description (original/<shelfmark>/<shelfmark>_0.md), so the lists can be
-rebuilt from the catalogue instead of being kept by hand:
+rebuilt from the catalog instead of being kept by hand:
 
     century: 16       -> the "Служебники XVI в." / "16th-Century Manuscripts"
                          section
     paleography: yes  -> class="forlink"      (the ordinary dark red link)
     paleography: no   -> class="forlink-red"  (the page's legend explains that
-                         these lack a palaeographic description)
+                         these lack a paleographic description)
 
 Only the run of links inside each of those five sections is rewritten; every
 other element of the two pages, and their formatting, is left byte for byte
@@ -20,7 +20,7 @@ as it was.  Both pages carry the same links and differ only in the wording of
 their headings, so they are driven from the one table below.
 
 Usage:
-    ./update_catalog.py [--catalogue original] [--pages .] [-n]
+    ./update_catalog.py [--catalog original] [--pages .] [-n]
 """
 
 from __future__ import annotations
@@ -64,14 +64,14 @@ def read_front_matter(path: str) -> dict[str, str]:
     return meta
 
 
-def collect(catalogue: str) -> tuple[dict[str, list[tuple[int, str]]], int]:
+def collect(catalog: str) -> tuple[dict[str, list[tuple[int, str]]], int]:
     """Group the shelfmarks by century, warning about the ones we cannot place."""
     by_century: dict[str, list[tuple[int, str]]] = {c: [] for c, _, _ in SECTIONS}
     known = {c for c, _, _ in SECTIONS}
     warnings = 0
 
-    for name in sorted(os.listdir(catalogue)):
-        directory = os.path.join(catalogue, name)
+    for name in sorted(os.listdir(catalog)):
+        directory = os.path.join(catalog, name)
         if not os.path.isdir(directory) or not name.isdigit():
             continue
         description = os.path.join(directory, "%s_0.md" % name)
@@ -107,7 +107,7 @@ def collect(catalogue: str) -> tuple[dict[str, list[tuple[int, str]]], int]:
 
 
 def render_links(entries: list[tuple[int, str]]) -> str:
-    """The run of links of one section, as the pages have always spelt it."""
+    """The run of links of one section, as the pages have always spelled it."""
     return "\n\n".join(LINK % (css, shelfmark, shelfmark, shelfmark)
                        for shelfmark, css in entries)
 
@@ -131,9 +131,9 @@ def main(argv: list[str]) -> int:
     here = os.path.dirname(os.path.abspath(__file__))
     root = os.path.dirname(here)
     parser = argparse.ArgumentParser(
-        description="Fill in the manuscript lists of the catalogue front pages.")
-    parser.add_argument("--catalogue", default=os.path.join(root, "original"),
-                        help="the Markdown catalogue (default: ../original)")
+        description="Fill in the manuscript lists of the catalog front pages.")
+    parser.add_argument("--catalog", default=os.path.join(root, "original"),
+                        help="the Markdown catalog (default: ../original)")
     parser.add_argument("--pages", default=root,
                         help="directory holding the two pages (default: the "
                              "repository root)")
@@ -142,10 +142,10 @@ def main(argv: list[str]) -> int:
     parser.add_argument("-q", "--quiet", action="store_true")
     args = parser.parse_args(argv)
 
-    if not os.path.isdir(args.catalogue):
-        parser.error("no such directory: %s" % args.catalogue)
+    if not os.path.isdir(args.catalog):
+        parser.error("no such directory: %s" % args.catalog)
 
-    by_century, warnings = collect(args.catalogue)
+    by_century, warnings = collect(args.catalog)
 
     for filename, column in PAGES:
         path = os.path.join(args.pages, filename)
