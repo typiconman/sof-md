@@ -17,6 +17,8 @@ Novgorod's St Sophia Cathedral (Соф.) at the National Library of Russia, as a
   taking over from the legacy `SOF/convert_i.pl`.
   [add_manuscript.py](scripts/add_manuscript.py) converts one loose ODT into
   the catalogue, for descriptions not yet filed under `SOF/`.
+  [update_catalog.py](scripts/update_catalog.py) fills the manuscript lists of
+  the two front pages from the `century` and `paleography` front matter.
 - `SOF/` — the legacy `.odt` source tree and the old Perl/HTML conversion
   pipeline it replaces. Kept locally only; not tracked in this repository.
 - `encoding.ods` — a spreadsheet that was used to make scripts/cyrillica_bg_epigraph_mod_to_unicode.json, will be deleted eventually.
@@ -43,6 +45,13 @@ fields that cannot be read off the document itself:
 ```sh
 python3 scripts/add_manuscript.py new-odt/652_0.ODT -o original \
     --century 16 --paleography
+```
+
+Rebuild the manuscript lists on `sof-catalog.html` and `sof-catalog-en.html`
+after adding descriptions or editing their `century` / `paleography` fields:
+
+```sh
+python3 scripts/update_catalog.py
 ```
 
 See `--help` for the available options (`--only`, `--no-assets`, `--clean`,
