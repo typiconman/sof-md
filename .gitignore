@@ -9,6 +9,9 @@
 /sof-catalog/
 /sof-catalog-new/
 
+# Review report written by scripts/build_index.py --report
+/index-report.txt
+
 # Python
 __pycache__/
 *.py[cod]

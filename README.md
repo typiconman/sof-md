@@ -19,6 +19,8 @@ Novgorod's St Sophia Cathedral (Соф.) at the National Library of Russia, as a
   the catalogue, for descriptions not yet filed under `SOF/`.
   [update_catalog.py](scripts/update_catalog.py) fills the manuscript lists of
   the two front pages from the `century` and `paleography` front matter.
+  [build_index.py](scripts/build_index.py) builds `sof-index.html` from the
+  underlined liturgical units of the descriptions.
 - `SOF/` — the legacy `.odt` source tree and the old Perl/HTML conversion
   pipeline it replaces. Kept locally only; not tracked in this repository.
 - `encoding.ods` — a spreadsheet that was used to make scripts/cyrillica_bg_epigraph_mod_to_unicode.json, will be deleted eventually.
@@ -52,6 +54,13 @@ after adding descriptions or editing their `century` / `paleography` fields:
 
 ```sh
 python3 scripts/update_catalog.py
+```
+
+Rebuild the index of liturgical units, together with a report of what was
+merged and what nearly was:
+
+```sh
+python3 scripts/build_index.py --report index-report.txt
 ```
 
 See `--help` for the available options (`--only`, `--no-assets`, `--clean`,
